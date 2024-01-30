@@ -1,0 +1,2 @@
+- Guzzle library alternatyva Newtonsof.
+- jei noriu naudoti build-in objektą, pvz new Exception, tai reikia pridėti "\" (new \Exception), kad nepridėtų klasės namespace, čia labai svarbu, knisausi pora valandų ties šiuo klausimu.

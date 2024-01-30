@@ -27,17 +27,31 @@ final class FlightsDetails
      *
      * @return string String of transactions from input.txt.
      */
-    public static function MakeHttpRequest(): string
-    {
+    public static function MakeHttpRequest(): bool|string
+    {   
+        // API URL
         $url = 'http://homeworktask.infare.lt/search.php?from=MAD&to=FUE&depart=2024-02-09&return=2024-02-16';
 
-        // $jsonData = file_get_contents('./public/' . $fileName);
-        $jsonData = file_get_contents($url);
+        // Fetch API data
+        $response  = file_get_contents($url);
 
-        // var_dump(gettype($jsonData));
-        // die();
+        try {
+            // Fetch API data
+            $response  = file_get_contents($url);
+        
+            if ($response === false) {
+                throw new \Exception("While fetching API");
+            }
+        
+            // Process the parsed data
+            echo "Fetched API data succesfully.". PHP_EOL;
+        
+        } catch (\Exception $e) {
+            // Handle exceptions
+            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
+        }
 
-        return $jsonData;
+        return $response;
     }
    
     /**
@@ -51,7 +65,21 @@ final class FlightsDetails
     {
         $fileName = 'flightsData.json';
 
-        file_put_contents('./public/' . $fileName, $jsonData);
+        try {
+            // Fetch API data
+            $result = file_put_contents('./public/' . $fileName, $jsonData);
+        
+            if ($result === false) {
+                throw new \Exception("When trying to write data to file.");
+            }
+        
+            // Process the parsed data
+            echo "Write data to file succesfully". PHP_EOL;
+        
+        } catch (\Exception $e) {
+            // Handle exceptions
+            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
+        }
 
         return $fileName;
     }
@@ -63,15 +91,31 @@ final class FlightsDetails
      *
      * @return string String of transactions from input.txt.
      */
-    public static function ParseData(string $fileName): array
+    public static function ParseData(string $fileName)
     {
-        $json = file_get_contents('./public/' . $fileName);
-
-        $data = json_decode($json, true);
-
-        // var_dump($data['header']);
+        try {
+            // Read JSON data from file
+            $json = file_get_contents('./public/' . $fileName);
+        
+            if ($json === false) {
+                throw new \Exception("When reading file");
+            }
+        
+            // Decode JSON data
+            $parsedData = json_decode($json, true);
+        
+            if ($parsedData === null) {
+                throw new \Exception("When decoding JSON");
+            }
+        
+            // Process the parsed data
+            echo "Read and decode Json file succesfully.". PHP_EOL;
+        
+        } catch (\Exception $e) {
+            // Handle exceptions
+            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
+        }
+        // var_dump($parsedData['header']);
         // die;
-
-        return $parsedData;
     }
 }

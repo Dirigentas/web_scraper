@@ -27,9 +27,9 @@ final class Control
      */
     public function executeAllClasses(): void
     {
-        $request = FlightsDetails::MakeHttpRequest();
+        $response = FlightsDetails::MakeHttpRequest();
 
-        $fetchedData = FlightsDetails::FetchData($request);
+        $fetchedData = FlightsDetails::FetchData($response);
 
         $parsedData = FlightsDetails::ParseData($fetchedData);
 
