@@ -9,6 +9,9 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 use Aras\WebScraper\FlightsDetails;
+use Aras\WebScraper\ApiReader;
+use Aras\WebScraper\dataFilter\FlightDataExtracter;
+
 // use Aras\WebScraper\FileReader;
 // use Aras\WebScraper\DataValidation;
 // use Aras\WebScraper\calculations\LowestPriceFinder;
@@ -27,17 +30,15 @@ final class Control
      */
     public function executeAllClasses(): void
     {
-        $response = FlightsDetails::MakeHttpRequest();
+        $flightDetails = FlightsDetails::AirportAndDatesChooser();
 
-        $fetchedData = FlightsDetails::FetchData($response);
+        $response = ApiReader::MakeHttpRequest($flightDetails);
 
-        $parsedData = FlightsDetails::ParseData($fetchedData);
+        $fetchedData = ApiReader::FetchData($response);
 
-        // $input = FileReader::getFileData('input.txt');
+        $parsedData = ApiReader::ParseData($fetchedData);
 
-        // $input = FileReader::makeTransactionArray($input);
-
-        // $output = DataValidation::dataVerification($input, $this->couriersDetails, $this->inputDataStructure);
+        FlightDataExtracter::OutboundFlights($parsedData);
 
         // $output = DataValidation::addShipmentPrices($output, $this->couriersDetails);
 
@@ -53,24 +54,4 @@ final class Control
 
         // self::writeToStdout($output);
     }
-
-    /**
-     * This method writes the $output to stdout.
-     *
-     * @param $output The array of transactions with calculated discounts.
-     *
-     * @return void
-     */
-    // public static function writeToStdout(array $output): void
-    // {
-    //     foreach ($output as &$transaction) {
-    //         $transaction = implode(' ', $transaction);
-    //     }
-
-    //     $output = implode("\r\n", $output);
-
-    //     $stdout = fopen('php://stdout', 'w');
-    //     fwrite($stdout, $output);
-    //     fclose($stdout);
-    // }
 }
