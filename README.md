@@ -9,7 +9,7 @@
 -   have PHP and composer installed in your system
 -   run below terminal commands:
     -   composer install
-    -   php start_webscraper.php
+    -   composer run-script start
 
 ## 🎯 Project features
 

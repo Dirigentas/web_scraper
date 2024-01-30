@@ -1,5 +1,21 @@
 {
-    "require": {
-        "fabpot/goutte": "^4.0"
+    "name": "aras/web_scraper",
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aras\\WebScraper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aras",
+            "email": "minelga.aras@gmail.com"
+        }
+    ],
+    "scripts": {
+        "start": "php public/index.php"
     }
 }
