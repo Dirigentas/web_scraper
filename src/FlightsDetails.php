@@ -47,11 +47,31 @@ final class FlightsDetails
      *
      * @return string String of transactions from input.txt.
      */
-    public static function FetchData(string $jsonData): void
+    public static function FetchData(string $jsonData): string
     {
-        file_put_contents('flightsData.json', $jsonData);
+        $fileName = 'flightsData.json';
+
+        file_put_contents('./public/' . $fileName, $jsonData);
+
+        return $fileName;
     }
 
+    /**
+     * Parse data from json file.
+     *
+     * @param string $fileName The name of the file to read data from.
+     *
+     * @return string String of transactions from input.txt.
+     */
+    public static function ParseData(string $fileName): array
+    {
+        $json = file_get_contents('./public/' . $fileName);
 
-    
+        $data = json_decode($json, true);
+
+        // var_dump($data['header']);
+        // die;
+
+        return $parsedData;
+    }
 }

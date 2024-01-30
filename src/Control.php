@@ -29,7 +29,9 @@ final class Control
     {
         $request = FlightsDetails::MakeHttpRequest();
 
-        FlightsDetails::FetchData($request);
+        $fetchedData = FlightsDetails::FetchData($request);
+
+        $parsedData = FlightsDetails::ParseData($fetchedData);
 
         // $input = FileReader::getFileData('input.txt');
 
