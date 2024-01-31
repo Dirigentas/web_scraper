@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Aras\WebScraper\Control;
+use Aras\WebScraper\ProjectController;
 
 /**
  * Starts the solution.
  */
-(new Control())->executeAllClasses();
+(new ProjectController())->executeAllClasses();

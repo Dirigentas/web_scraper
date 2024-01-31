@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class purpose is to parse data.
+ * Class purpose is to write data to Json file.
  */
 
 declare(strict_types=1);
@@ -11,9 +11,9 @@ namespace Aras\WebScraper;
 /**
  * Class ....
  */
-final class DataParser
+final class DataToJsonWriter
 {    
-    public static function ParseData(string $fileName)
+    public static function WriteData(string $fileName)
     {
         try {
             // Read JSON data from file

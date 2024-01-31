@@ -9,6 +9,7 @@
 -   have PHP and composer installed in your system
 -   run below terminal commands:
     -   composer install
+    -   choose desired flights destinations and dates in FlightsDetails.php
     -   composer run-script start
 
 ## 🎯 Project features
