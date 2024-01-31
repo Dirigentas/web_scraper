@@ -38,7 +38,7 @@ final class Control
 
         $parsedData = ApiReader::ParseData($fetchedData);
 
-        FlightDataExtracter::OutboundFlights($parsedData);
+        FlightDataExtracter::OutboundFlights($parsedData, $flightDetails);
 
         // $output = DataValidation::addShipmentPrices($output, $this->couriersDetails);
 

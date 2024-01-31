@@ -34,7 +34,7 @@ class FlightsDetails
         $tripFrom = 'MAD';
         $tripTo = 'AUH';
         $departDate = '2024-02-02';
-        $returnDate = '2024-02-05';
+        $returnDate = '2024-02-09';
 
         return ['tripFrom' => $tripFrom,
         'tripTo' => $tripTo,
