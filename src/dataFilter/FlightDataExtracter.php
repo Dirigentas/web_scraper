@@ -46,28 +46,80 @@ class FlightDataExtracter
             "inbound 2 time departure"=>[],
             "inbound 2 time arrival"=>[],
             "inbound 2 flight number"=>[]
-        ];    
+        ];
+
+        $prices = [];
+        foreach ($parsedData['body']['data']['totalAvailabilities'] as $availablePrice) {
+            $prices[$availablePrice['recommendationId']] = $availablePrice['total'];
+        }
 
         foreach ($parsedData['body']['data']['journeys'] as $journey) {
-            $flight = $journey['flights'][0];
+            foreach ($journey['flights'] as $flight) {
 
-            if ($flight['airportDeparture']['code'] == $flightDetails['tripFrom']) {
+                if ($flight['airportDeparture']['code'] == $flightDetails['tripFrom']) {
 
-                $outputData['outbound 1 airport departure'][] = $flight['airportDeparture']['code'];
-                $outputData['outbound 1 airport arrival'][] = $flight['airportArrival']['code'];
-                $outputData['outbound 1 time departure'][] = $flight['dateDeparture'];
-                $outputData['outbound 1 time arrival'][] = $flight['dateArrival'];
-                $outputData['outbound 1 flight number'][] = $flight['number'];
+                    $outputData['Price'][] = $prices[$journey['recommendationId']];
+                    
+                    $outputData['Taxes'][] = $journey['importTaxAdl'];
+
+                    $outputData['outbound 1 airport departure'][] = $flight['airportDeparture']['code'];
+                    $outputData['outbound 1 airport arrival'][] = $flight['airportArrival']['code'];
+                    $outputData['outbound 1 time departure'][] = date('Y-m-d H:i', strtotime($flight['dateDeparture']));
+                    $outputData['outbound 1 time arrival'][] = date('Y-m-d H:i', strtotime($flight['dateArrival']));
+                    $outputData['outbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
+                }
+
+                if ($flight['airportDeparture']['code'] == $flightDetails['tripTo']) {
+
+                    $outputData['Taxes'][count($outputData['Taxes']) - 1] += $journey['importTaxAdl'];
+
+                    $outputData['inbound 1 airport departure'][] = $flight['airportDeparture']['code'];
+                    $outputData['inbound 1 airport arrival'][] = $flight['airportArrival']['code'];
+                    $outputData['inbound 1 time departure'][] = date('Y-m-d H:i', strtotime($flight['dateDeparture']));
+                    $outputData['inbound 1 time arrival'][] = date('Y-m-d H:i', strtotime($flight['dateArrival']));
+                    $outputData['inbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
+                }
+
+                if (
+                    $flight['airportDeparture']['code'] != $flightDetails['tripFrom'] &&
+                    $flight['airportArrival']['code'] == $flightDetails['tripTo']
+                ) {
+
+                    $outputData['outbound 2 airport departure'][] = $flight['airportDeparture']['code'];
+                    $outputData['outbound 2 airport arrival'][] = $flight['airportArrival']['code'];
+                    $outputData['outbound 2 time departure'][] = $flight['dateDeparture'];
+                    $outputData['outbound 2 time arrival'][] = $flight['dateArrival'];
+                    $outputData['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
+
+                } elseif ($flight['airportDeparture']['code'] == $flightDetails['tripFrom']) {
+                    $outputData['outbound 2 airport departure'][] = '-';
+                    $outputData['outbound 2 airport arrival'][] = '-';
+                    $outputData['outbound 2 time departure'][] = '-';
+                    $outputData['outbound 2 time arrival'][] = '-';
+                    $outputData['outbound 2 flight number'][] = '-';
+                } {
+                }
+
+                if (
+                    $flight['airportDeparture']['code'] != $flightDetails['tripTo'] &&
+                    $flight['airportArrival']['code'] == $flightDetails['tripFrom']
+                ) {
+
+                    $outputData['inbound 2 airport departure'][] = $flight['airportDeparture']['code'];
+                    $outputData['inbound 2 airport arrival'][] = $flight['airportArrival']['code'];
+                    $outputData['inbound 2 time departure'][] = $flight['dateDeparture'];
+                    $outputData['inbound 2 time arrival'][] = $flight['dateArrival'];
+                    $outputData['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
+
+                } elseif ($flight['airportDeparture']['code'] == $flightDetails['tripTo']) {
+                    $outputData['inbound 2 airport departure'][] = '-';
+                    $outputData['inbound 2 airport arrival'][] = '-';
+                    $outputData['inbound 2 time departure'][] = '-';
+                    $outputData['inbound 2 time arrival'][] = '-';
+                    $outputData['inbound 2 flight number'][] = '-';
+                } {
+                }
             }
-
-            if ($flight['airportDeparture']['code'] == $flightDetails['tripTo']) {
-
-                $outputData['inbound 1 airport departure'][] = $flight['airportDeparture']['code'];
-                $outputData['inbound 1 airport arrival'][] = $flight['airportArrival']['code'];
-                $outputData['inbound 1 time departure'][] = $flight['dateDeparture'];
-                $outputData['inbound 1 time arrival'][] = $flight['dateArrival'];
-                $outputData['inbound 1 flight number'][] = $flight['number'];
-            } 
         }
 
         $csvData = [];
