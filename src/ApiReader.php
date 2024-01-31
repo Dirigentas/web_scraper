@@ -20,14 +20,11 @@ final class ApiReader
      *
      * @return string String of transactions from input.txt.
      */
-    public static function MakeHttpRequest(array $flightDetails): bool|string
+    public static function MakeHttpRequest(array $flightsDetails): bool|string
     {   
         $apiUrl = "http://homeworktask.infare.lt/search.php?from=" .
-            $flightDetails['tripFrom'] . "&to=" . $flightDetails['tripTo'] .
-            "&depart=" . $flightDetails['departDate'] . "&return=" . $flightDetails['returnDate'];
-
-        // Fetch API data
-        $response  = file_get_contents($apiUrl);
+            $flightsDetails['tripFrom'] . "&to=" . $flightsDetails['tripTo'] .
+            "&depart=" . $flightsDetails['departDate'] . "&return=" . $flightsDetails['returnDate'];
 
         try {
             // Fetch API data
@@ -55,9 +52,10 @@ final class ApiReader
      *
      * @return string String of transactions from input.txt.
      */
-    public static function FetchData(string $jsonData): string
+    public static function FetchData(string $jsonData, array $flightsDetails): string
     {
-        $fileName = 'flightsData.json';
+        $fileName = $flightsDetails['tripFrom'] . '-' . $flightsDetails['tripTo']
+        . '_(' . $flightsDetails['departDate'] . ')-(' . $flightsDetails['returnDate'] . ').json';
 
         try {
             // Fetch API data
@@ -76,39 +74,5 @@ final class ApiReader
         }
 
         return $fileName;
-    }
-
-    /**
-     * Parse data from json file.
-     *
-     * @param string $fileName The name of the file to read data from.
-     *
-     * @return string String of transactions from input.txt.
-     */
-    public static function ParseData(string $fileName)
-    {
-        try {
-            // Read JSON data from file
-            $json = file_get_contents('./public/' . $fileName);
-        
-            if ($json === false) {
-                throw new \Exception("When reading file");
-            }
-        
-            // Decode JSON data
-            $parsedData = json_decode($json, true);
-        
-            if ($parsedData === null) {
-                throw new \Exception("When decoding JSON");
-            }
-        
-            // Process the parsed data
-            echo "Read and decode Json file succesfully.". PHP_EOL;
-        
-        } catch (\Exception $e) {
-            // Handle exceptions
-            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
-        }
-        return $parsedData;
     }
 }

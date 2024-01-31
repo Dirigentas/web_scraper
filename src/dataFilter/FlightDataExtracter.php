@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File purpose is to extract outbound  and  inbound  flight data.
+ * File purpose is to extract outbound  and  inbound  flights data.
  */
 
 declare(strict_types=1);
@@ -9,19 +9,18 @@ declare(strict_types=1);
 namespace Aras\WebScraper\dataFilter;
 
 /**
- * Class LowestPriceFinder contains methods for calculating discount on shipments.
+ * Class ...
  */
 class FlightDataExtracter
 {
     /**
-     * Applies a discount to the chosen package size.
+     * ...
      *
-     * @param array[] $output   The array of transactions to be processed.
-     * @param array[] $couriersDetails Contains the courier and package size information.
+     * @param array[] ...
      *
      * @return array[] Array of transactions with the S package discount applied.
      */
-    public static function OutboundFlights(array $parsedData, array $flightDetails)
+    public static function OutboundFlights(array $parsedData, array $flightsDetails)
     {
         $outputData = [
             "Price"=>[],
@@ -56,7 +55,7 @@ class FlightDataExtracter
         foreach ($parsedData['body']['data']['journeys'] as $journey) {
             foreach ($journey['flights'] as $flight) {
 
-                if ($flight['airportDeparture']['code'] == $flightDetails['tripFrom']) {
+                if ($flight['airportDeparture']['code'] == $flightsDetails['tripFrom']) {
 
                     $outputData['Price'][] = $prices[$journey['recommendationId']];
                     
@@ -69,7 +68,7 @@ class FlightDataExtracter
                     $outputData['outbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
                 }
 
-                if ($flight['airportDeparture']['code'] == $flightDetails['tripTo']) {
+                if ($flight['airportDeparture']['code'] == $flightsDetails['tripTo']) {
 
                     $outputData['Taxes'][count($outputData['Taxes']) - 1] += $journey['importTaxAdl'];
 
@@ -81,8 +80,8 @@ class FlightDataExtracter
                 }
 
                 if (
-                    $flight['airportDeparture']['code'] != $flightDetails['tripFrom'] &&
-                    $flight['airportArrival']['code'] == $flightDetails['tripTo']
+                    $flight['airportDeparture']['code'] != $flightsDetails['tripFrom'] &&
+                    $flight['airportArrival']['code'] == $flightsDetails['tripTo']
                 ) {
 
                     $outputData['outbound 2 airport departure'][] = $flight['airportDeparture']['code'];
@@ -91,7 +90,7 @@ class FlightDataExtracter
                     $outputData['outbound 2 time arrival'][] = $flight['dateArrival'];
                     $outputData['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
 
-                } elseif ($flight['airportDeparture']['code'] == $flightDetails['tripFrom']) {
+                } elseif ($flight['airportDeparture']['code'] == $flightsDetails['tripFrom']) {
                     $outputData['outbound 2 airport departure'][] = '-';
                     $outputData['outbound 2 airport arrival'][] = '-';
                     $outputData['outbound 2 time departure'][] = '-';
@@ -101,8 +100,8 @@ class FlightDataExtracter
                 }
 
                 if (
-                    $flight['airportDeparture']['code'] != $flightDetails['tripTo'] &&
-                    $flight['airportArrival']['code'] == $flightDetails['tripFrom']
+                    $flight['airportDeparture']['code'] != $flightsDetails['tripTo'] &&
+                    $flight['airportArrival']['code'] == $flightsDetails['tripFrom']
                 ) {
 
                     $outputData['inbound 2 airport departure'][] = $flight['airportDeparture']['code'];
@@ -111,7 +110,7 @@ class FlightDataExtracter
                     $outputData['inbound 2 time arrival'][] = $flight['dateArrival'];
                     $outputData['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
 
-                } elseif ($flight['airportDeparture']['code'] == $flightDetails['tripTo']) {
+                } elseif ($flight['airportDeparture']['code'] == $flightsDetails['tripTo']) {
                     $outputData['inbound 2 airport departure'][] = '-';
                     $outputData['inbound 2 airport arrival'][] = '-';
                     $outputData['inbound 2 time departure'][] = '-';
@@ -130,7 +129,8 @@ class FlightDataExtracter
             }
         }
 
-        $file = fopen('./public/flightsData.csv', 'w');
+        $file = fopen('./public/' . $flightsDetails['tripFrom'] . '-' . $flightsDetails['tripTo']
+        . '_(' . $flightsDetails['departDate'] . ')-(' . $flightsDetails['returnDate'] . ').csv', 'w');
 
         fputcsv($file, [
             "Price",

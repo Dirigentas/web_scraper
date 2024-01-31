@@ -10,13 +10,8 @@ namespace Aras\WebScraper;
 
 use Aras\WebScraper\FlightsDetails;
 use Aras\WebScraper\ApiReader;
+use Aras\WebScraper\DataParser;
 use Aras\WebScraper\dataFilter\FlightDataExtracter;
-
-// use Aras\WebScraper\FileReader;
-// use Aras\WebScraper\DataValidation;
-// use Aras\WebScraper\calculations\LowestPriceFinder;
-// use Aras\WebScraper\calculations\MonthlyPromotion;
-// use Aras\WebScraper\calculations\DiscountLimiter;
 
 /**
  * Class Control controls all pats of the solution.
@@ -30,28 +25,14 @@ final class Control
      */
     public function executeAllClasses(): void
     {
-        $flightDetails = FlightsDetails::AirportAndDatesChooser();
+        $flightsDetails = FlightsDetails::AirportAndDatesChooser();
 
-        $response = ApiReader::MakeHttpRequest($flightDetails);
+        $response = ApiReader::MakeHttpRequest($flightsDetails);
 
-        $fetchedData = ApiReader::FetchData($response);
+        $fetchedData = ApiReader::FetchData($response, $flightsDetails);
 
-        $parsedData = ApiReader::ParseData($fetchedData);
+        $parsedData = DataParser::ParseData($fetchedData);
 
-        FlightDataExtracter::OutboundFlights($parsedData, $flightDetails);
-
-        // $output = DataValidation::addShipmentPrices($output, $this->couriersDetails);
-
-        // $output = LowestPriceFinder::matchLowestProviderPrice($output, $this->couriersDetails);
-
-        // $output = MonthlyPromotion::freeOncePerMonth($output, $this->couriersDetails);
-
-        // $output = DiscountLimiter::limitsDiscounts($output);
-
-        // $output = Formatting::formatShipmentPrice($output);
-
-        // $output = Formatting::formatShipmentDiscount($output);
-
-        // self::writeToStdout($output);
+        FlightDataExtracter::OutboundFlights($parsedData, $flightsDetails);
     }
 }

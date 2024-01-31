@@ -14,15 +14,6 @@ namespace Aras\WebScraper;
 class FlightsDetails
 {
     /**
-     * @var array $airportsFrom An array containing the settings for flights details.
-     * @var array $airportsTo An array containing the settings for flights details.
-    */
-    private $airportsFrom = ['MAD', 'JFK', 'CPH'];
-    private $airportsTo = ['AUH', 'FUE', 'MAD'];
-    // private $departureDates = 2024-02-02;
-    // private $returnDates = $departureDate + 3;
-
-    /**
      * Place whete to choose the parameters for requesting data.
      *
      * @param string $fileName The name of the file to read data from.
