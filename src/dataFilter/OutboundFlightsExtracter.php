@@ -122,8 +122,6 @@ class OutboundFlightsExtracter
                 }
             }
         }
-        // print_r($directionCombinations);
-        // die;
         return $filteredDataArray;
     }
 }

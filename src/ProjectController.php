@@ -31,12 +31,12 @@ final class ProjectController
     {
         $flightsDetails = FlightsDetails::AirportAndDatesChooser();
 
-        // $response = ApiReader::MakeHttpRequest($flightsDetails);
+        $response = ApiReader::MakeHttpRequest($flightsDetails);
 
-        // $fileName = ApiReader::WriteData($response, $flightsDetails);
+        $fileName = ApiReader::WriteData($response, $flightsDetails);
 
-        // $jsonData = JsonDataReader::ReadData($fileName);
-        $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
+        $jsonData = JsonDataReader::ReadData($fileName);
+        // $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
         // $jsonData = JsonDataReader::ReadData('MAD-AUH_(2024-02-09)-(2024-02-16).json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
