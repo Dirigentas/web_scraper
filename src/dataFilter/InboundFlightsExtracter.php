@@ -41,8 +41,8 @@ class InboundFlightsExtracter
         }
         $forTax = 0;
         foreach ($directionCombinations as $key => $recommendationId) {
-            $inCombinationsCountOneId = count($recommendationId['in']);
-            foreach (range(1, 2) as $number) {
+            $outboundCombinationsCountSingleId = count($recommendationId['out']);
+            foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
                     foreach ($journey['flights'] as $flight) {
         
@@ -93,8 +93,8 @@ class InboundFlightsExtracter
         }
 
         foreach ($directionCombinations as $key => $recommendationId) {
-            $inCombinationsCountOneId = count($recommendationId['in']);
-            foreach (range(1, 2) as $number) {
+            $outboundCombinationsCountSingleId = count($recommendationId['out']);
+            foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
                     foreach ($journey['flights'] as $flight) {
         
@@ -109,13 +109,17 @@ class InboundFlightsExtracter
                             $filteredDataArray['inbound 2 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
-                        // elseif ($flight['airportDeparture']['code'] == $flightsDetails['tripTo']) {
-                        //     $filteredDataArray['inbound 2 airport departure'][] = '-';
-                        //     $filteredDataArray['inbound 2 airport arrival'][] = '-';
-                        //     $filteredDataArray['inbound 2 time departure'][] = '-';
-                        //     $filteredDataArray['inbound 2 time arrival'][] = '-';
-                        //     $filteredDataArray['inbound 2 flight number'][] = '-';
-                        // }
+                        elseif (
+                            $flight['airportDeparture']['code'] == $flightsDetails['tripTo'] &&
+                            $flight['airportArrival']['code'] == $flightsDetails['tripFrom'] &&
+                            $journey['recommendationId'] == $key
+                        ) {
+                            $filteredDataArray['inbound 2 airport departure'][] = '-';
+                            $filteredDataArray['inbound 2 airport arrival'][] = '-';
+                            $filteredDataArray['inbound 2 time departure'][] = '-';
+                            $filteredDataArray['inbound 2 time arrival'][] = '-';
+                            $filteredDataArray['inbound 2 flight number'][] = '-';
+                        }
                     }
                 }
             }
