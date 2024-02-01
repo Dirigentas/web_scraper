@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper\dataFilter;
+namespace Aras\WebScraper\data_extraction;
 
 /**
  * Class ...
@@ -25,8 +25,6 @@ class TicketPriceScraper
         foreach ($jsonData['body']['data']['totalAvailabilities'] as $availablePrice) {
             $prices[$availablePrice['recommendationId']] = $availablePrice['total'];
         }
-        // print_r($prices);
-        // die;
         return $prices;
     }
 }

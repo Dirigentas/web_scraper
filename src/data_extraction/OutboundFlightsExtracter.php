@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper\dataFilter;
+namespace Aras\WebScraper\data_extraction;
 
 use Aras\WebScraper\Formatting;
 
@@ -21,24 +21,8 @@ class OutboundFlightsExtracter
      * @param
      * @return
      */
-    public static function ExtractOutbound1Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices): Array
+    public static function ExtractOutbound1Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
-        $directionCombinations = [];
-        foreach ($jsonData['body']['data']['journeys'] as $journey) {
-            foreach ($journey['flights'] as $flight) {
-
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripFrom']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
-                }
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripTo']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
-                }
-            }
-        }
         foreach ($directionCombinations as $key => $recommendationId) {
             $inboundCombinationsCountSingleId = count($recommendationId['in']);
             foreach ($jsonData['body']['data']['journeys'] as $journey) {
@@ -72,30 +56,14 @@ class OutboundFlightsExtracter
      * @param
      * @return
      */
-    public static function ExtractOutbound2Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices): Array
+    public static function ExtractOutbound2Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
-        $directionCombinations = [];
-        foreach ($jsonData['body']['data']['journeys'] as $journey) {
-            foreach ($journey['flights'] as $flight) {
-
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripFrom']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
-                }
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripTo']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
-                }
-            }
-        }
         foreach ($directionCombinations as $key => $recommendationId) {
             $inboundCombinationsCountSingleId = count($recommendationId['in']);
-            foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
-                foreach ($jsonData['body']['data']['journeys'] as $journey) {
-                    foreach ($journey['flights'] as $flight) {
-        
+            foreach ($jsonData['body']['data']['journeys'] as $journey) {
+                foreach ($journey['flights'] as $flight) {
+                    foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
+
                         if (
                             $flight['airportDeparture']['code'] != $flightsDetails['tripFrom'] &&
                             $flight['airportArrival']['code'] == $flightsDetails['tripTo'] &&

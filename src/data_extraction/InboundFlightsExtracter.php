@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper\dataFilter;
+namespace Aras\WebScraper\data_extraction;
 
 use Aras\WebScraper\Formatting;
 
@@ -21,25 +21,9 @@ class InboundFlightsExtracter
      * @param
      * @return
      */
-    public static function ExtractInbound1Flights(array $flightsDetails, array $jsonData, array $filteredDataArray): Array
+    public static function ExtractInbound1Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {
-        $directionCombinations = [];
-        foreach ($jsonData['body']['data']['journeys'] as $journey) {
-            foreach ($journey['flights'] as $flight) {
-
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripFrom']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
-                }
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripTo']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
-                }
-            }
-        }
-        $forTax = 0;
+        $taxElementId = 0;
         foreach ($directionCombinations as $key => $recommendationId) {
             $outboundCombinationsCountSingleId = count($recommendationId['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
@@ -50,7 +34,7 @@ class InboundFlightsExtracter
                             $flight['airportDeparture']['code'] == $flightsDetails['tripTo'] &&
                             $journey['recommendationId'] == $key
                         ) {                            
-                            $filteredDataArray['Taxes'][$forTax] += $journey['importTaxAdl'];
+                            $filteredDataArray['Taxes'][$taxElementId] += $journey['importTaxAdl'];
         
                             $filteredDataArray['inbound 1 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['inbound 1 airport arrival'][] = $flight['airportArrival']['code'];
@@ -58,7 +42,7 @@ class InboundFlightsExtracter
                             $filteredDataArray['inbound 1 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
 
-                            $forTax +=1;
+                            $taxElementId +=1;
                         }
                     }
                 }
@@ -73,25 +57,8 @@ class InboundFlightsExtracter
      * @param
      * @return
      */
-    public static function ExtractInbound2Flights(array $flightsDetails, array $jsonData, array $filteredDataArray): Array
+    public static function ExtractInbound2Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {     
-        $directionCombinations = [];
-        foreach ($jsonData['body']['data']['journeys'] as $journey) {
-            foreach ($journey['flights'] as $flight) {
-
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripFrom']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
-                }
-                if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripTo']
-                ) {
-                    $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
-                }
-            }
-        }
-
         foreach ($directionCombinations as $key => $recommendationId) {
             $outboundCombinationsCountSingleId = count($recommendationId['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {

@@ -22,11 +22,12 @@ class FlightsDetails
      */
     public static function AirportAndDatesChooser(): array
     {
-        $tripFrom = 'MAD';
-        // $tripTo = 'AUH';
-        $tripTo = 'FUE';
-        $departDate = '2024-03-09';
-        $returnDate = '2024-03-16';
+        // $tripFrom = 'MAD';
+        $tripFrom = 'CPH';
+        $tripTo = 'MAD';
+        // $tripTo = 'FUE';
+        $departDate = '2024-02-09';
+        $returnDate = '2024-02-16';
 
         return ['tripFrom' => $tripFrom,
         'tripTo' => $tripTo,
