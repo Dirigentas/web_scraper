@@ -25,7 +25,8 @@ class TicketPriceScraper
         foreach ($jsonData['body']['data']['totalAvailabilities'] as $availablePrice) {
             $prices[$availablePrice['recommendationId']] = $availablePrice['total'];
         }
-
+        // print_r($prices);
+        // die;
         return $prices;
     }
 }

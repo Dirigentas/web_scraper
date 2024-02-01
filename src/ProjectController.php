@@ -10,7 +10,8 @@ namespace Aras\WebScraper;
 
 use Aras\WebScraper\FlightsDetails;
 use Aras\WebScraper\ApiReader;
-use Aras\WebScraper\DataParser;
+use Aras\WebScraper\JsonDataReader;
+use Aras\WebScraper\OutputArrayPreparer;
 use Aras\WebScraper\dataFilter\TicketPriceScraper;
 use Aras\WebScraper\dataFilter\OutboundFlightsExtracter;
 use Aras\WebScraper\dataFilter\InboundFlightsExtracter;
@@ -30,11 +31,13 @@ final class ProjectController
     {
         $flightsDetails = FlightsDetails::AirportAndDatesChooser();
 
-        $response = ApiReader::MakeHttpRequest($flightsDetails);
+        // $response = ApiReader::MakeHttpRequest($flightsDetails);
 
-        $fetchedData = ApiReader::FetchData($response, $flightsDetails);
+        // $fileName = ApiReader::WriteData($response, $flightsDetails);
 
-        $jsonData = DataToJsonWriter::WriteData($fetchedData);
+        // $jsonData = JsonDataReader::ReadData($fileName);
+        $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadData('MAD-AUH_(2024-02-02)-(2024-02-09).json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
 

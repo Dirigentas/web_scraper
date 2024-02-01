@@ -4,12 +4,12 @@
 
 - [Homework_for_Junior_Data_Extraction_Specialist](Homework_for_Junior_Data_Extraction_Specialist.pdf)
 
-## `Start the solution`
+## `Start` the solution
 
--   have PHP and composer installed in your system
+-   have `PHP` and `composer` installed in your system
+-   choose desired flights destinations and dates in [FlightsDetails](./src/FlightsDetails.php) and `save` the file
 -   run below terminal commands:
     -   composer install
-    -   choose desired flights destinations and dates in FlightsDetails.php
     -   composer run-script start
 
 ## 🎯 Project features

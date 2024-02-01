@@ -52,7 +52,7 @@ final class ApiReader
      *
      * @return string String of transactions from input.txt.
      */
-    public static function FetchData(string $jsonData, array $flightsDetails): string
+    public static function WriteData(string $jsonData, array $flightsDetails): string
     {
         $fileName = $flightsDetails['tripFrom'] . '-' . $flightsDetails['tripTo']
         . '_(' . $flightsDetails['departDate'] . ')-(' . $flightsDetails['returnDate'] . ').json';

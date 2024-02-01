@@ -23,9 +23,9 @@ class FlightsDetails
     public static function AirportAndDatesChooser(): array
     {
         $tripFrom = 'MAD';
-        $tripTo = 'AUH';
-        $departDate = '2024-02-02';
-        $returnDate = '2024-02-09';
+        $tripTo = 'FUE';
+        $departDate = '2024-02-09';
+        $returnDate = '2024-02-16';
 
         return ['tripFrom' => $tripFrom,
         'tripTo' => $tripTo,

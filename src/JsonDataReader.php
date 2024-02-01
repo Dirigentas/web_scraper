@@ -11,9 +11,9 @@ namespace Aras\WebScraper;
 /**
  * Class ....
  */
-final class DataToJsonWriter
+final class JsonDataReader
 {    
-    public static function WriteData(string $fileName)
+    public static function ReadData(string $fileName)
     {
         try {
             // Read JSON data from file
