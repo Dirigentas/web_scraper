@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper;
 
-use Aras\WebScraper\FlightsDetails;
+use Aras\WebScraper\FlightDataRequester;
 use Aras\WebScraper\ApiReader;
 use Aras\WebScraper\JsonDataReader;
 use Aras\WebScraper\OutputArrayPreparer;
@@ -19,7 +19,7 @@ use Aras\WebScraper\data_extraction\InboundFlightsExtracter;
 use Aras\WebScraper\DataToCsvWriter;
 
 /**
- * Class Control controls all pats of the solution.
+ * Class ProjectController controls all paths of the solution.
  */
 final class ProjectController
 {
@@ -28,13 +28,11 @@ final class ProjectController
      *
      * @return void
      */
-    public function executeAllClasses(): void
+    public static function executeAllClasses(): void
     {
-        $flightsDetails = FlightsDetails::AirportAndDatesChooser();
+        // $response = ApiReader::MakeHttpRequest(FlightDataRequester::$FlightRequestParams);
 
-        $response = ApiReader::MakeHttpRequest($flightsDetails);
-
-        $fileName = ApiReader::WriteData($response, $flightsDetails);
+        // $fileName = ApiReader::WriteData($response, FlightDataRequester::$FlightRequestParams);
 
         // $jsonData = JsonDataReader::ReadData($fileName);
         // $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
@@ -45,18 +43,18 @@ final class ProjectController
 
         $tickedPrices = TicketPriceScraper::ExtractTickedPrices($jsonData);
 
-        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights($flightsDetails, $jsonData);
+        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights(FlightDataRequester::$FlightRequestParams, $jsonData);
 
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($flightsDetails, $jsonData, $emptyFilteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $emptyFilteredDataArray, $tickedPrices, $directionCombinations);
         
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($flightsDetails, $jsonData, $filteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $tickedPrices, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($flightsDetails, $jsonData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($flightsDetails, $jsonData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $directionCombinations);
 
         $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
 
-        DataToCsvWriter::WriteData($flightsDetails, $csvDataArray);
+        DataToCsvWriter::WriteData(FlightDataRequester::$FlightRequestParams, $csvDataArray);
     }
 }

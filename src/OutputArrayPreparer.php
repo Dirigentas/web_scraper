@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File purpose is to create and prepare array for future filtered output.
+ * Represents a class for preparing arrays for future data processing.
  */
 
 declare(strict_types=1);
@@ -9,14 +9,15 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 /**
- * Class ...
+ * Class OutputArrayPreparer
+ * Represents a class for preparing arrays for future data processing.
  */
 class OutputArrayPreparer
 {
     /**
-     * ...
+     * Creates an empty array structure for future data.
      *
-     * @return array[] Array for future filtered output.
+     * @return array An array structure with empty arrays for storing data, organized by data categories.
      */
     public static function MakeOutputArray(): Array
     {
@@ -49,7 +50,7 @@ class OutputArrayPreparer
     }
 
     /**
-     * Transposes array in preparation for writing to CSV file.
+     * Transposes array in preparation for to writing it to a CSV file.
      * 
      * @param array $filteredDataArray Array of filtered data.
      * @return array $csvDataArray Transposed filtered data array.

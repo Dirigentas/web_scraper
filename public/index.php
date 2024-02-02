@@ -17,4 +17,4 @@ use Aras\WebScraper\ProjectController;
 /**
  * Starts the solution.
  */
-(new ProjectController())->executeAllClasses();
+ProjectController::executeAllClasses();

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File purpose is to extract outbound  and  inbound  flights data.
+ * Represents a class for extracting outbound flights data based on provided flight details from JSON data.
  */
 
 declare(strict_types=1);
@@ -11,17 +11,22 @@ namespace Aras\WebScraper\data_extraction;
 use Aras\WebScraper\Formatting;
 
 /**
- * Class ...
+ * Class OutboundFlightsExtracter
+ * Represents a class for extracting outbound flights data based on provided flight details from JSON data.
  */
 class OutboundFlightsExtracter
 {
     /**
-     * ...
+     * This method extracts data for the first outbound flights based on JSON data.
      *
-     * @param
-     * @return
+     * @param array $FlightRequestParams An array containing parameters for requesting flight data.
+     * @param array $jsonData The JSON data containing flight details.
+     * @param array $filteredDataArray An array prepared to be filled with filtered data.
+     * @param array $tickedPrices An array containing ticket prices data.
+     * @param array $directionCombinations An array containing direction combinations data.
+     * @return array The updated filtered data array with outbound 1 flight data.
      */
-    public static function ExtractOutbound1Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
+    public static function ExtractOutbound1Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
         foreach ($directionCombinations as $key => $recommendationId) {
             $inboundCombinationsCountSingleId = count($recommendationId['in']);
@@ -29,7 +34,7 @@ class OutboundFlightsExtracter
                 foreach ($journey['flights'] as $flight) {
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
                         if (
-                            $flight['airportDeparture']['code'] == $flightsDetails['tripFrom'] &&
+                            $flight['airportDeparture']['code'] == $FlightRequestParams['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {
         
@@ -50,13 +55,17 @@ class OutboundFlightsExtracter
         return $filteredDataArray;
     }
 
-     /**
-     * ...
+    /**
+     * This method extracts data for the second outbound flights based on JSON data.
      *
-     * @param
-     * @return
+     * @param array $FlightRequestParams An array containing parameters for requesting flight data
+     * @param array $jsonData The JSON data containing flight details.
+     * @param array $filteredDataArray An array prepared to be filled with filtered data.
+     * @param array $tickedPrices An array containing ticket prices data.
+     * @param array $directionCombinations An array containing direction combinations data.
+     * @return array The updated filtered data array with outbound 2 flight data.
      */
-    public static function ExtractOutbound2Flights(array $flightsDetails, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
+    public static function ExtractOutbound2Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
         foreach ($directionCombinations as $key => $recommendationId) {
             $inboundCombinationsCountSingleId = count($recommendationId['in']);
@@ -65,8 +74,8 @@ class OutboundFlightsExtracter
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
 
                         if (
-                            $flight['airportDeparture']['code'] != $flightsDetails['tripFrom'] &&
-                            $flight['airportArrival']['code'] == $flightsDetails['tripTo'] &&
+                            $flight['airportDeparture']['code'] != $FlightRequestParams['tripFrom'] &&
+                            $flight['airportArrival']['code'] == $FlightRequestParams['tripTo'] &&
                             $journey['recommendationId'] == $key
                         ) {        
                             $filteredDataArray['outbound 2 airport departure'][] = $flight['airportDeparture']['code'];
@@ -76,8 +85,8 @@ class OutboundFlightsExtracter
                             $filteredDataArray['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
-                            $flight['airportDeparture']['code'] == $flightsDetails['tripFrom'] &&
-                            $flight['airportArrival']['code'] == $flightsDetails['tripTo'] &&
+                            $flight['airportDeparture']['code'] == $FlightRequestParams['tripFrom'] &&
+                            $flight['airportArrival']['code'] == $FlightRequestParams['tripTo'] &&
                             $journey['recommendationId'] == $key
                             ) {
                             $filteredDataArray['outbound 2 airport departure'][] = '-';

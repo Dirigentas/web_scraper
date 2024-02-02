@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 /**
- * Class Formatting is responsible for formatting given dates.
+ * Class Formatting is responsible for formatting given data.
  */
 class Formatting
 {

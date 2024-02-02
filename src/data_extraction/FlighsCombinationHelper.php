@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File purpose is 
+ * Represents a class for counting flight directions based on provided flight details in JSON data.
  */
 
 declare(strict_types=1);
@@ -11,28 +11,31 @@ namespace Aras\WebScraper\data_extraction;
 use Aras\WebScraper\Formatting;
 
 /**
- * Class ...
+ * Class FlighsCombinationHelper
+ * Represents a class for counting flight directions based on provided flight details in JSON data.
  */
 class FlighsCombinationHelper
 {
     /**
-     * ...
+     * This method analyzes the JSON data containing flight details and counts the number of flights for each direction
+     * (outbound and inbound) based on the provided flight details.
      *
-     * @param
-     * @return
+     * @param array $FlightRequestParams An array containing parameters for requesting flight data.
+     * @param array $jsonData The JSON file containing data of selected airports and period.
+     * @return array[] An associative array where keys are recommendation IDs and values are arrays containing flight numbers for outbound and inbound directions.
      */
-    public static function CountDirectionFlights(array $flightsDetails, array $jsonData): Array
+    public static function CountDirectionFlights(array $FlightRequestParams, array $jsonData): Array
     {
         foreach ($jsonData['body']['data']['journeys'] as $journey) {
             foreach ($journey['flights'] as $flight) {
 
                 if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripFrom']
+                    $flight['airportDeparture']['code'] == $FlightRequestParams['tripFrom']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
                 }
                 if (
-                    $flight['airportDeparture']['code'] == $flightsDetails['tripTo']
+                    $flight['airportDeparture']['code'] == $FlightRequestParams['tripTo']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
                 }

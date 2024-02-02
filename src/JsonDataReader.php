@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class purpose is to write data to Json file.
+ * Represents a class for reading data from a JSON file.
  */
 
 declare(strict_types=1);
@@ -9,32 +9,33 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 /**
- * Class ....
+ * Class JsonDataReader
+ * Represents a class for reading data from a JSON file.
  */
 final class JsonDataReader
-{    
-    public static function ReadData(string $fileName)
+{   
+    /**
+     * Reads and decodes JSON data from a file.
+     *
+     * @param string $fileName The name of the JSON file to read data from.
+     * @return array[]|null Returns the decoded JSON data as an associative array on success, or null on failure.
+     */ 
+    public static function ReadData(string $fileName): ?array
     {
         try {
-            // Read JSON data from file
             $json = file_get_contents('./public/' . $fileName);
         
             if ($json === false) {
                 throw new \Exception("When reading file");
             }
-        
-            // Decode JSON data
             $parsedData = json_decode($json, true);
         
             if ($parsedData === null) {
                 throw new \Exception("When decoding JSON");
             }
-        
-            // Process the parsed data
             echo "Read and decode Json file succesfully.". PHP_EOL;
         
         } catch (\Exception $e) {
-            // Handle exceptions
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
         return $parsedData;

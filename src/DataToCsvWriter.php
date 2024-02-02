@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class purpose is to write data to CSV file.
+ * Represents a class for writing data to a CSV file.
  */
 
 declare(strict_types=1);
@@ -9,14 +9,22 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 /**
- * Class ....
+ * Class DataToCsvWriter
+ * Represents a class for writing data to a CSV file.
  */
 final class DataToCsvWriter
 {    
-    public static function WriteData(array $flightsDetails, array $csvDataArray): void
+    /**
+     * This method writes the provided data to a CSV file with the specified filename format.
+     *
+     * @param array $FlightRequestParams An array containing parameters for requesting flight data.
+     * @param array $csvDataArray An array containing the data to be written to the CSV file.
+     * @return void
+     */
+    public static function WriteData(array $FlightRequestParams, array $csvDataArray): void
     {
-        $csvFileName = fopen('./public/' . $flightsDetails['tripFrom'] . '-' . $flightsDetails['tripTo']
-        . '_(' . $flightsDetails['departDate'] . ')-(' . $flightsDetails['returnDate'] . ').csv', 'w');
+        $csvFileName = fopen('./public/' . $FlightRequestParams['tripFrom'] . '-' . $FlightRequestParams['tripTo']
+        . '_(' . $FlightRequestParams['departDate'] . ')-(' . $FlightRequestParams['returnDate'] . ').csv', 'w');
 
         fputcsv($csvFileName, [
             "Price",
