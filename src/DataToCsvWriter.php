@@ -17,14 +17,14 @@ final class DataToCsvWriter
     /**
      * This method writes the provided data to a CSV file with the specified filename format.
      *
-     * @param array $FlightRequestParams An array containing parameters for requesting flight data.
+     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
      * @param array $csvDataArray An array containing the data to be written to the CSV file.
      * @return void
      */
-    public static function WriteData(array $FlightRequestParams, array $csvDataArray): void
+    public static function WriteData(array $formattedSearchCriteria, array $csvDataArray): void
     {
-        $csvFileName = fopen('./public/' . $FlightRequestParams['tripFrom'] . '-' . $FlightRequestParams['tripTo']
-        . '_(' . $FlightRequestParams['departDate'] . ')-(' . $FlightRequestParams['returnDate'] . ').csv', 'w');
+        $csvFileName = fopen('./public/' . $formattedSearchCriteria['tripFrom'] . '-' . $formattedSearchCriteria['tripTo']
+        . '_(' . $formattedSearchCriteria['departDate'] . ')-(' . $formattedSearchCriteria['returnDate'] . ').csv', 'w');
 
         fputcsv($csvFileName, [
             "Price",

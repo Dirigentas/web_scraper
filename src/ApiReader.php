@@ -16,15 +16,15 @@ class ApiReader
     /**
      * Sends an HTTP request to the API and retrieves a response.
      *
-     * @param array $FlightRequestParams An array containing details of the flights, including departure and arrival airports,
+     * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
      * departure and return dates.
      * @return bool|string Returns the response from the API as a string on success, or false on failure.
      */
-    public static function MakeHttpRequest(array $FlightRequestParams): bool|string
+    public static function MakeHttpRequest(array $formattedSearchCriteria): bool|string
     {   
         $apiUrl = "http://homeworktask.infare.lt/search.php?from=" .
-            $FlightRequestParams['tripFrom'] . "&to=" . $FlightRequestParams['tripTo'] .
-            "&depart=" . $FlightRequestParams['departDate'] . "&return=" . $FlightRequestParams['returnDate'];
+            $formattedSearchCriteria['tripFrom'] . "&to=" . $formattedSearchCriteria['tripTo'] .
+            "&depart=" . $formattedSearchCriteria['departDate'] . "&return=" . $formattedSearchCriteria['returnDate'];
 
         try {
             $response  = file_get_contents($apiUrl);
@@ -44,14 +44,14 @@ class ApiReader
      * Writes data to a json file.
      *
      * @param string $jsonData The JSON data to write to the file.
-     * @param array $FlightRequestParams An array containing details of the flights, including departure and arrival airports,
+     * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
      * departure and return dates.
      * @return string Returns the name of the JSON file that was written.
      */
-    public static function WriteData(string $jsonData, array $FlightRequestParams): string
+    public static function WriteData(string $jsonData, array $formattedSearchCriteria): string
     {
-        $fileName = $FlightRequestParams['tripFrom'] . '-' . $FlightRequestParams['tripTo']
-        . '_(' . $FlightRequestParams['departDate'] . ')-(' . $FlightRequestParams['returnDate'] . ').json';
+        $fileName = $formattedSearchCriteria['tripFrom'] . '-' . $formattedSearchCriteria['tripTo']
+        . '_(' . $formattedSearchCriteria['departDate'] . ')-(' . $formattedSearchCriteria['returnDate'] . ').json';
 
         try {
             $result = file_put_contents('./public/' . $fileName, $jsonData);

@@ -14,6 +14,21 @@ namespace Aras\WebScraper;
 class Formatting
 {
     /**
+     *
+     */
+    public static function formatSearchCriteria(array $searchCriteria): array
+    {
+        $searchCriteria['departDate'] = $searchCriteria['departDate']['year'] .
+        '-' . $searchCriteria['departDate']['month'] . '-' . $searchCriteria['departDate']['day'];
+
+        $searchCriteria['returnDate'] = $searchCriteria['returnDate']['year'] .
+        '-' . $searchCriteria['returnDate']['month'] . '-' . $searchCriteria['returnDate']['day'];
+
+        return $searchCriteria;
+    }
+
+
+    /**
      * Formats dates.
      *
      * @param string $input String with base date format.

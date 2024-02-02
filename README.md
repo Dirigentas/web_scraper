@@ -7,7 +7,7 @@
 ## `Start` the solution
 
 -   have `PHP` and `composer` installed in your system
--   choose desired flights destinations and dates in [FlightsDetails](./src/FlightsDetails.php) and `save` the file
+-   choose desired flights destinations and dates in [SearchCriteria.json](./public/SearchCriteria.json) and `save` the file
 -   run below terminal commands:
     -   composer install
     -   composer run-script start

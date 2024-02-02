@@ -1,0 +1,15 @@
+{
+    "tip": "Enter the search values between the double quotes",
+    "tripFrom": "MAD",
+    "tripTo": "FUE",
+    "departDate": {
+        "year": "2024",
+        "month": "02",
+        "day": "09"
+    },
+    "returnDate": {
+        "year": "2024",
+        "month": "02",
+        "day": "16"
+    }
+}

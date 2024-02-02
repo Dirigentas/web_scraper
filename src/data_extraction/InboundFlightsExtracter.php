@@ -20,14 +20,14 @@ class InboundFlightsExtracter
     /**
      * This method extracts data for the first inbound flights based on JSON data.
      *
-     * @param array $FlightRequestParams An array containing parameters for requesting flight data.
+     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
      * @param array $tickedPrices An array containing ticket prices data.
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 1 flight data.
      */
-    public static function ExtractInbound1Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
+    public static function ExtractInbound1Flights(array $formattedSearchCriteria, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {
         $taxElementId = 0;
         foreach ($directionCombinations as $key => $flightNo) {
@@ -42,7 +42,7 @@ class InboundFlightsExtracter
                     foreach ($journey['flights'] as $flight) {
         
                         if (
-                            $flight['airportDeparture']['code'] == $FlightRequestParams['tripTo'] &&
+                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripTo'] &&
                             $journey['recommendationId'] == $key
                         ) {                            
                             $filteredDataArray['Taxes'][$taxElementId] += $journey['importTaxAdl'];
@@ -65,14 +65,14 @@ class InboundFlightsExtracter
     /**
      * This method extracts data for the second inbound flights based on JSON data.
      *
-     * @param array $FlightRequestParams An array containing parameters for requesting flight data
+     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
      * @param array $tickedPrices An array containing ticket prices data.
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 2 flight data.
      */
-    public static function ExtractInbound2Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
+    public static function ExtractInbound2Flights(array $formattedSearchCriteria, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {     
         foreach ($directionCombinations as $key => $flightNo) {
             $outboundCombinationsCountSingleId = count($flightNo['out']);
@@ -86,8 +86,8 @@ class InboundFlightsExtracter
                     foreach ($journey['flights'] as $flight) {
         
                         if (
-                            $flight['airportDeparture']['code'] != $FlightRequestParams['tripTo'] &&
-                            $flight['airportArrival']['code'] == $FlightRequestParams['tripFrom'] &&
+                            $flight['airportDeparture']['code'] != $formattedSearchCriteria['tripTo'] &&
+                            $flight['airportArrival']['code'] == $formattedSearchCriteria['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {                                  
                             $filteredDataArray['inbound 2 airport departure'][] = $flight['airportDeparture']['code'];
@@ -97,8 +97,8 @@ class InboundFlightsExtracter
                             $filteredDataArray['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
-                            $flight['airportDeparture']['code'] == $FlightRequestParams['tripTo'] &&
-                            $flight['airportArrival']['code'] == $FlightRequestParams['tripFrom'] &&
+                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripTo'] &&
+                            $flight['airportArrival']['code'] == $formattedSearchCriteria['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {
                             $filteredDataArray['inbound 2 airport departure'][] = '-';

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper;
 
+use Aras\WebScraper\Formatting;
 use Aras\WebScraper\FlightDataRequester;
 use Aras\WebScraper\ApiReader;
 use Aras\WebScraper\JsonDataReader;
@@ -30,32 +31,36 @@ final class ProjectController
      */
     public static function executeAllClasses(): void
     {
-        // $response = ApiReader::MakeHttpRequest(FlightDataRequester::$FlightRequestParams);
+        $searchCriteria = JsonDataReader::ReadSearchCriteria();
 
-        // $fileName = ApiReader::WriteData($response, FlightDataRequester::$FlightRequestParams);
+        $formattedSearchCriteria = Formatting::formatSearchCriteria($searchCriteria);
 
-        // $jsonData = JsonDataReader::ReadData($fileName);
-        $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
-        // $jsonData = JsonDataReader::ReadData('MAD-AUH_(2024-02-09)-(2024-02-16).json');
-        // $jsonData = JsonDataReader::ReadData('CPH-MAD_(2024-02-09)-(2024-02-16).json');
-        // $jsonData = JsonDataReader::ReadData('JFK-FUE_(2024-02-09)-(2024-12-16).json');
+        // $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
+
+        // $fileName = ApiReader::WriteData($response, $formattedSearchCriteria);
+
+        // $jsonData = JsonDataReader::ReadFlightsData($fileName);
+        $jsonData = JsonDataReader::ReadFlightsData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadFlightsData('MAD-AUH_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadFlightsData('CPH-MAD_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadFlightsData('JFK-FUE_(2024-02-09)-(2024-12-16).json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
 
         $tickedPrices = TicketPriceScraper::ExtractTickedPrices($jsonData);
 
-        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights(FlightDataRequester::$FlightRequestParams, $jsonData);
+        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights($formattedSearchCriteria, $jsonData);
 
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $emptyFilteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($formattedSearchCriteria, $jsonData, $emptyFilteredDataArray, $tickedPrices, $directionCombinations);
         
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $tickedPrices, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights(FlightDataRequester::$FlightRequestParams, $jsonData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
 
         $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
 
-        DataToCsvWriter::WriteData(FlightDataRequester::$FlightRequestParams, $csvDataArray);
+        DataToCsvWriter::WriteData($formattedSearchCriteria, $csvDataArray);
     }
 }
