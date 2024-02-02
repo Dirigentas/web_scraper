@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Represents a class for managing requested flights
+ * Represents a class for managing requested flights.
  */
 
 declare(strict_types=1);
@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Aras\WebScraper;
 
 /**
- * Represents a class for managing requested flights
+ * Represents a class for managing requested flights.
  */
 class FlightDataRequester
 {
