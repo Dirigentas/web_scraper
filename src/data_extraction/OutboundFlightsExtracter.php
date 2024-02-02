@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Aras\WebScraper\data_extraction;
 
 use Aras\WebScraper\Formatting;
+use Aras\WebScraper\data_extraction\TwoConnectionsSkipper;
 
 /**
  * Class OutboundFlightsExtracter
@@ -28,9 +29,14 @@ class OutboundFlightsExtracter
      */
     public static function ExtractOutbound1Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
-        foreach ($directionCombinations as $key => $recommendationId) {
-            $inboundCombinationsCountSingleId = count($recommendationId['in']);
+        foreach ($directionCombinations as $key => $flightNo) {
+            $inboundCombinationsCountSingleId = count($flightNo['in']);
             foreach ($jsonData['body']['data']['journeys'] as $journey) {
+
+                if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                    continue;
+                }
+
                 foreach ($journey['flights'] as $flight) {
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
                         if (
@@ -52,6 +58,8 @@ class OutboundFlightsExtracter
                 }
             }
         }
+        // print_r($journeyFlightsCount);
+        // die;
         return $filteredDataArray;
     }
 
@@ -67,9 +75,14 @@ class OutboundFlightsExtracter
      */
     public static function ExtractOutbound2Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
     {
-        foreach ($directionCombinations as $key => $recommendationId) {
-            $inboundCombinationsCountSingleId = count($recommendationId['in']);
+        foreach ($directionCombinations as $key => $flightNo) {
+            $inboundCombinationsCountSingleId = count($flightNo['in']);
             foreach ($jsonData['body']['data']['journeys'] as $journey) {
+
+                if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                    continue;
+                }
+
                 foreach ($journey['flights'] as $flight) {
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
 

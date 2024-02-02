@@ -35,9 +35,10 @@ final class ProjectController
         // $fileName = ApiReader::WriteData($response, FlightDataRequester::$FlightRequestParams);
 
         // $jsonData = JsonDataReader::ReadData($fileName);
-        // $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
+        $jsonData = JsonDataReader::ReadData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
         // $jsonData = JsonDataReader::ReadData('MAD-AUH_(2024-02-09)-(2024-02-16).json');
-        $jsonData = JsonDataReader::ReadData('CPH-MAD_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadData('CPH-MAD_(2024-02-09)-(2024-02-16).json');
+        // $jsonData = JsonDataReader::ReadData('JFK-FUE_(2024-02-09)-(2024-12-16).json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
 

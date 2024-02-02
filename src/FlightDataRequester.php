@@ -21,9 +21,9 @@ class FlightDataRequester
       *                               - 'returnDate': The return date in 'YYYY-MM-DD' format.
       */
     public static $FlightRequestParams = [
-        'tripFrom' => 'CPH',
-        'tripTo' => 'MAD',
+        'tripFrom' => 'MAD',
+        'tripTo' => 'FUE',
         'departDate' => '2024-02-09',
-        'returnDate' => '2024-02-16'
+        'returnDate' => '2024-12-16'
     ];
 }

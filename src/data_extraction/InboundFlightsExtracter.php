@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Aras\WebScraper\data_extraction;
 
 use Aras\WebScraper\Formatting;
+use Aras\WebScraper\data_extraction\TwoConnectionsSkipper;
 
 /**
  * Class InboundFlightsExtracter
@@ -29,10 +30,15 @@ class InboundFlightsExtracter
     public static function ExtractInbound1Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {
         $taxElementId = 0;
-        foreach ($directionCombinations as $key => $recommendationId) {
-            $outboundCombinationsCountSingleId = count($recommendationId['out']);
+        foreach ($directionCombinations as $key => $flightNo) {
+            $outboundCombinationsCountSingleId = count($flightNo['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
+
+                    if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                        continue;
+                    }
+
                     foreach ($journey['flights'] as $flight) {
         
                         if (
@@ -68,10 +74,15 @@ class InboundFlightsExtracter
      */
     public static function ExtractInbound2Flights(array $FlightRequestParams, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {     
-        foreach ($directionCombinations as $key => $recommendationId) {
-            $outboundCombinationsCountSingleId = count($recommendationId['out']);
+        foreach ($directionCombinations as $key => $flightNo) {
+            $outboundCombinationsCountSingleId = count($flightNo['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
+
+                    if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                        continue;
+                    }
+
                     foreach ($journey['flights'] as $flight) {
         
                         if (
