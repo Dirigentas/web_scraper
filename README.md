@@ -2,7 +2,7 @@
 
 ## 🌟 About
 
-- [Homework_for_Junior_Data_Extraction_Specialist](Homework_for_Junior_Data_Extraction_Specialist.pdf)
+- [Homework_for_Junior_Data_Extraction_Specialist](Homework.pdf)
 
 ## `Start` the solution
 
