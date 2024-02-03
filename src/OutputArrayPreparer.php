@@ -43,7 +43,8 @@ class OutputArrayPreparer
             "inbound 2 airport arrival"=>[],
             "inbound 2 time departure"=>[],
             "inbound 2 time arrival"=>[],
-            "inbound 2 flight number"=>[]
+            "inbound 2 flight number"=>[],
+            "Cheapest"=>[]
         ];
 
         return $emptyFilteredDataArray;

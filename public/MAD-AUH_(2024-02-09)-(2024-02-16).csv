@@ -1,0 +1,5 @@
+Price,Taxes,"outbound 1 airport departure","outbound 1 airport arrival","outbound 1 time departure","outbound 1 time arrival","outbound 1 flight number","outbound 2 airport departure","outbound 2 airport arrival","outbound 2 time departure","outbound 2 time arrival","outbound 2 flight number","inbound 1 airport departure","inbound 1 airport arrival","inbound 1 time departure","inbound 1 time arrival","inbound 1 flight number","inbound 2 airport departure","inbound 2 airport arrival","inbound 2 time departure","inbound 2 time arrival","inbound 2 flight number",Cheapest
+684.13,325.13,MAD,AUH,"2024-02-09 14:00","2024-02-09 23:40",UX2703,-,-,-,-,-,AUH,MAD,"2024-02-16 07:30","2024-02-16 12:30",UX2702,-,-,-,-,-,Yes
+2545.13,359.13,MAD,AUH,"2024-02-09 14:00","2024-02-09 23:40",UX2703,-,-,-,-,-,AUH,MAD,"2024-02-16 07:30","2024-02-16 12:30",UX2702,-,-,-,-,-,No
+2545.13,359.13,MAD,AUH,"2024-02-09 14:00","2024-02-09 23:40",UX2703,-,-,-,-,-,AUH,MAD,"2024-02-16 07:30","2024-02-16 12:30",UX2702,-,-,-,-,-,No
+4406.13,393.13,MAD,AUH,"2024-02-09 14:00","2024-02-09 23:40",UX2703,-,-,-,-,-,AUH,MAD,"2024-02-16 07:30","2024-02-16 12:30",UX2702,-,-,-,-,-,No

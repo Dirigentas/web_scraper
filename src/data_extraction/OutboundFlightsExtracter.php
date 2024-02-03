@@ -10,6 +10,7 @@ namespace Aras\WebScraper\data_extraction;
 
 use Aras\WebScraper\Formatting;
 use Aras\WebScraper\data_extraction\TwoConnectionsSkipper;
+use Aras\WebScraper\data_extraction\TicketPriceScraper;
 
 /**
  * Class OutboundFlightsExtracter
@@ -53,6 +54,12 @@ class OutboundFlightsExtracter
                             $filteredDataArray['outbound 1 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
                             $filteredDataArray['outbound 1 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
                             $filteredDataArray['outbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
+
+                            if ($journey['recommendationId'] == TicketPriceScraper::FindCheapestRecommendation($jsonData)) {
+                                $filteredDataArray['Cheapest'][] = 'Yes';
+                            } else {
+                                $filteredDataArray['Cheapest'][] = 'No';
+                            }
                         }
                     }
                 }

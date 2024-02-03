@@ -27,4 +27,26 @@ class TicketPriceScraper
         }
         return $prices;
     }
+
+    /**
+     * Finds the recommendation ID with the lowest price from decoded JSON data.
+     * 
+     * array $jsonData Decoded JSON data containing flight options.
+     * @return int|string The recommendation ID of the cheapest option.
+     */
+    public static function FindCheapestRecommendation(array $jsonData): Int|string
+    {
+        $cheapestRecommendationId;
+        $lowestPrice = INF;
+
+        foreach ($jsonData['body']['data']['totalAvailabilities'] as $option) {
+
+            if ($lowestPrice > $option['total']) {
+
+                $lowestPrice = $option['total'];
+                $cheapestRecommendationId = $option['recommendationId'];
+            }
+        }
+        return $cheapestRecommendationId;
+    }
 }
