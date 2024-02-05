@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper;
+namespace Aras\WebScraper\utilities;
 
 /**
  * Provides functionality to delete old files.

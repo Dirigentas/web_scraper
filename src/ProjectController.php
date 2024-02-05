@@ -8,17 +8,16 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper;
 
-use Aras\WebScraper\Formatting;
-use Aras\WebScraper\FlightDataRequester;
-use Aras\WebScraper\ApiReader;
-use Aras\WebScraper\JsonDataReader;
-use Aras\WebScraper\OutputArrayPreparer;
+use Aras\WebScraper\utilities\Formatting;
+use Aras\WebScraper\utilities\ApiReader;
+use Aras\WebScraper\utilities\JsonDataReader;
+use Aras\WebScraper\utilities\OutputArrayPreparer;
 use Aras\WebScraper\data_extraction\TicketPriceScraper;
 use Aras\WebScraper\data_extraction\FlighsCombinationHelper;
 use Aras\WebScraper\data_extraction\OutboundFlightsExtracter;
 use Aras\WebScraper\data_extraction\InboundFlightsExtracter;
-use Aras\WebScraper\DataToCsvWriter;
-use Aras\WebScraper\FileDelition;
+use Aras\WebScraper\utilities\DataToCsvWriter;
+use Aras\WebScraper\utilities\FileDelition;
 
 /**
  * Class ProjectController controls all paths of the solution.

@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper;
+namespace Aras\WebScraper\utilities;
 
-use Aras\WebScraper\Validations;
+use Aras\WebScraper\utilities\Validations;
 
 /**
  * Class JsonDataReader

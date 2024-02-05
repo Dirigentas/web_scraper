@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper\data_extraction;
 
-use Aras\WebScraper\Formatting;
-
 /**
  * Class FlighsCombinationHelper
  * Represents a class for counting flight directions based on provided flight details in JSON data.
@@ -17,8 +15,7 @@ use Aras\WebScraper\Formatting;
 class FlighsCombinationHelper
 {
     /**
-     * This method analyzes the JSON data containing flight details and counts the number of flights for each direction
-     * (outbound and inbound) based on the provided flight details.
+     * This method analyzes the JSON data containing flight details and counts the number of unique flight paths for each direction.
      *
      * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
      * @param array $decodedFlightsData The JSON file containing data of selected airports and period.

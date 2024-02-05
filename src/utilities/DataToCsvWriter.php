@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper;
+namespace Aras\WebScraper\utilities;
 
 /**
  * Class DataToCsvWriter

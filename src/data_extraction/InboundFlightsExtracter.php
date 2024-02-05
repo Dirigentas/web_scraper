@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper\data_extraction;
 
-use Aras\WebScraper\Formatting;
+use Aras\WebScraper\utilities\Formatting;
 use Aras\WebScraper\data_extraction\TwoConnectionsSkipper;
 
 /**

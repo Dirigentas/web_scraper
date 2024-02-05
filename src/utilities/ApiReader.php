@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Aras\WebScraper;
+namespace Aras\WebScraper\utilities;
 
 /**
  * Represents a class for reading data from an API and writing it to a file.
