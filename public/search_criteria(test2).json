@@ -1,0 +1,47 @@
+{
+    "search_1": {
+        "tip": "Enter the search values between the double quotes",
+        "tripFrom": "MAD",
+        "tripTo": "AUH",
+        "departDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "09"
+        },
+        "returnDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "16"
+        }
+    },
+    "search_4": {
+        "tip": "Enter the search values between the double quotes",
+        "tripFrom": "JFK",
+        "tripTo": "AUH",
+        "departDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "09"
+        },
+        "returnDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "16"
+        }
+    },
+    "search_2": {
+        "tip": "Enter the search values between the double quotes",
+        "tripFrom": "JFK",
+        "tripTo": "AUH",
+        "departDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "09"
+        },
+        "returnDate": {
+            "year": "2024",
+            "month": "02",
+            "day": "16"
+        }
+    }
+}

@@ -97,8 +97,8 @@ class InboundFlightsExtracter
                             $filteredDataArray['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
-                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['search_1']['tripTo'] &&
-                            $flight['airportArrival']['code'] == $formattedSearchCriteria['search_1']['tripFrom'] &&
+                            $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripTo'] &&
+                            $flight['airportArrival']['code'] == $formattedSearchCriteria[$searchId]['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {
                             $filteredDataArray['inbound 2 airport departure'][] = '-';
