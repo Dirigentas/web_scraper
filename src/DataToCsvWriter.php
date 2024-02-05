@@ -21,10 +21,9 @@ final class DataToCsvWriter
      * @param array $csvDataArray An array containing the data to be written to the CSV file.
      * @return void
      */
-    public static function WriteData(array $formattedSearchCriteria, array $csvDataArray): void
+    public static function WriteData(array $csvDataArray): void
     {
-        $csvFileName = fopen('./public/' . $formattedSearchCriteria['tripFrom'] . '-' . $formattedSearchCriteria['tripTo']
-        . '_(' . $formattedSearchCriteria['departDate'] . ')-(' . $formattedSearchCriteria['returnDate'] . ').csv', 'w');
+        $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'w');
 
         fputcsv($csvFileName, [
             "Price",

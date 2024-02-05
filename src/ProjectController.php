@@ -37,13 +37,10 @@ final class ProjectController
 
         // $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
 
-        // $fileName = ApiReader::WriteData($response, $formattedSearchCriteria);
+        // $fileName = ApiReader::WriteData($response);
 
         // $jsonData = JsonDataReader::ReadFlightsData($fileName);
-        // $jsonData = JsonDataReader::ReadFlightsData('MAD-FUE_(2024-02-09)-(2024-02-16).json');
-        $jsonData = JsonDataReader::ReadFlightsData('MAD-AUH_(2024-02-09)-(2024-02-16).json');
-        // $jsonData = JsonDataReader::ReadFlightsData('CPH-MAD_(2024-02-09)-(2024-02-16).json');
-        // $jsonData = JsonDataReader::ReadFlightsData('JFK-FUE_(2024-02-09)-(2024-12-16).json');
+        $jsonData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
 
@@ -57,10 +54,10 @@ final class ProjectController
 
         $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
+        // $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
 
         $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
 
-        DataToCsvWriter::WriteData($formattedSearchCriteria, $csvDataArray);
+        DataToCsvWriter::WriteData($csvDataArray);
     }
 }
