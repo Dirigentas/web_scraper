@@ -54,7 +54,7 @@ final class ProjectController
 
         $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $directionCombinations);
 
-        // $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $directionCombinations);
 
         $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
 
