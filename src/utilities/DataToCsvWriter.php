@@ -13,7 +13,7 @@ namespace Aras\WebScraper\utilities;
  * Represents a class for writing data to a CSV file.
  */
 final class DataToCsvWriter
-{    
+{
     /**
      * This method writes the provided data to a CSV file with the specified filename format.
      *
@@ -21,7 +21,7 @@ final class DataToCsvWriter
      * @param string $searchId String containing ID of the current search.
      * @return void
      */
-    public static function WriteData(array $csvDataArray, string $searchId): void
+    public static function writeData(array $csvDataArray, string $searchId): void
     {
         if ($searchId == 'search_1') {
             $csvFileName = fopen('./public/search_results.csv', 'w');
@@ -51,8 +51,7 @@ final class DataToCsvWriter
                 "inbound 2 flight number",
                 "Cheapest"
             ]);
-        }
-        else {
+        } else {
             $csvFileName = fopen('./public/search_results.csv', 'a');
         }
 

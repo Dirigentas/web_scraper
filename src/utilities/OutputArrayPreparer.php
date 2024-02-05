@@ -19,32 +19,32 @@ class OutputArrayPreparer
      *
      * @return array An array structure with empty arrays for storing data, organized by data categories.
      */
-    public static function MakeOutputArray(): Array
+    public static function makeOutputArray(): array
     {
         $emptyAssociativeArray = [
-            "Price"=>[],
-            "Taxes"=>[],
-            "outbound 1 airport departure"=>[],
-            "outbound 1 airport arrival"=>[],
-            "outbound 1 time departure"=>[],
-            "outbound 1 time arrival"=>[],
-            "outbound 1 flight number"=>[],
-            "outbound 2 airport departure"=>[],
-            "outbound 2 airport arrival"=>[],
-            "outbound 2 time departure"=>[],
-            "outbound 2 time arrival"=>[],
-            "outbound 2 flight number"=>[],
-            "inbound 1 airport departure"=>[],
-            "inbound 1 airport arrival"=>[],
-            "inbound 1 time departure"=>[],
-            "inbound 1 time arrival"=>[],
-            "inbound 1 flight number"=>[],
-            "inbound 2 airport departure"=>[],
-            "inbound 2 airport arrival"=>[],
-            "inbound 2 time departure"=>[],
-            "inbound 2 time arrival"=>[],
-            "inbound 2 flight number"=>[],
-            "Cheapest"=>[]
+            "Price" => [],
+            "Taxes" => [],
+            "outbound 1 airport departure" => [],
+            "outbound 1 airport arrival" => [],
+            "outbound 1 time departure" => [],
+            "outbound 1 time arrival" => [],
+            "outbound 1 flight number" => [],
+            "outbound 2 airport departure" => [],
+            "outbound 2 airport arrival" => [],
+            "outbound 2 time departure" => [],
+            "outbound 2 time arrival" => [],
+            "outbound 2 flight number" => [],
+            "inbound 1 airport departure" => [],
+            "inbound 1 airport arrival" => [],
+            "inbound 1 time departure" => [],
+            "inbound 1 time arrival" => [],
+            "inbound 1 flight number" => [],
+            "inbound 2 airport departure" => [],
+            "inbound 2 airport arrival" => [],
+            "inbound 2 time departure" => [],
+            "inbound 2 time arrival" => [],
+            "inbound 2 flight number" => [],
+            "Cheapest" => []
         ];
 
         return $emptyAssociativeArray;
@@ -52,11 +52,11 @@ class OutputArrayPreparer
 
     /**
      * Transposes array in preparation for to writing it to a CSV file.
-     * 
+     *
      * @param array $filteredDataArray Array of filtered data.
      * @return array $csvDataArray Transposed filtered data array.
      */
-    public static function ArrayTransposer(array $filteredDataArray): Array
+    public static function arrayTransposer(array $filteredDataArray): array
     {
         $csvDataArray = [];
 

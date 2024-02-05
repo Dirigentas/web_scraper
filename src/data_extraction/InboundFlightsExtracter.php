@@ -27,33 +27,31 @@ class InboundFlightsExtracter
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 1 flight data.
      */
-    public static function ExtractInbound1Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
+    public static function extractInbound1Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $directionCombinations): array
     {
         $taxElementId = 0;
         foreach ($directionCombinations as $key => $flightNo) {
             $outboundCombinationsCountSingleId = count($flightNo['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
-
-                    if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                    if (TwoConnectionsSkipper::skipTwoConnections($journey)) {
                         continue;
                     }
 
                     foreach ($journey['flights'] as $flight) {
-        
                         if (
                             $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripTo'] &&
                             $journey['recommendationId'] == $key
-                        ) {                            
+                        ) {
                             $filteredDataArray['Taxes'][$taxElementId] += $journey['importTaxAdl'];
-        
+
                             $filteredDataArray['inbound 1 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['inbound 1 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['inbound 1 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
-                            $filteredDataArray['inbound 1 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
+                            $filteredDataArray['inbound 1 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
+                            $filteredDataArray['inbound 1 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
 
-                            $taxElementId +=1;
+                            $taxElementId += 1;
                         }
                     }
                 }
@@ -61,7 +59,7 @@ class InboundFlightsExtracter
         }
         return $filteredDataArray;
     }
-    
+
     /**
      * This method extracts data for the second inbound flights based on JSON data.
      *
@@ -72,31 +70,28 @@ class InboundFlightsExtracter
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 2 flight data.
      */
-    public static function ExtractInbound2Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
-    {     
+    public static function extractInbound2Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $directionCombinations): array
+    {
         foreach ($directionCombinations as $key => $flightNo) {
             $outboundCombinationsCountSingleId = count($flightNo['out']);
             foreach (range(1, $outboundCombinationsCountSingleId) as $number) {
                 foreach ($jsonData['body']['data']['journeys'] as $journey) {
-
-                    if (TwoConnectionsSkipper::SkipTwoConnections($journey)) {
+                    if (TwoConnectionsSkipper::skipTwoConnections($journey)) {
                         continue;
                     }
 
                     foreach ($journey['flights'] as $flight) {
-        
                         if (
                             $flight['airportDeparture']['code'] != $formattedSearchCriteria[$searchId]['tripTo'] &&
                             $flight['airportArrival']['code'] == $formattedSearchCriteria[$searchId]['tripFrom'] &&
                             $journey['recommendationId'] == $key
-                        ) {                                  
+                        ) {
                             $filteredDataArray['inbound 2 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['inbound 2 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['inbound 2 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
-                            $filteredDataArray['inbound 2 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
+                            $filteredDataArray['inbound 2 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
+                            $filteredDataArray['inbound 2 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
-                        }
-                        elseif (
+                        } elseif (
                             $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripTo'] &&
                             $flight['airportArrival']['code'] == $formattedSearchCriteria[$searchId]['tripFrom'] &&
                             $journey['recommendationId'] == $key
@@ -112,5 +107,5 @@ class InboundFlightsExtracter
             }
         }
         return $filteredDataArray;
-    }               
+    }
 }

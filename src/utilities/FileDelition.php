@@ -20,11 +20,11 @@ class FileDelition
      *
      * @return void
      */
-    public static function DeleteOldFiles(): void
+    public static function deleteOldFiles(): void
     {
         foreach (range(1, 11) as $key => $searcg) {
             $fileToDelete = './public/search_' . $key . '.json';
-        
+
             if (file_exists($fileToDelete)) {
                 unlink($fileToDelete);
             }

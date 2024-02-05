@@ -31,37 +31,37 @@ final class ProjectController
      */
     public static function executeAllClasses(): void
     {
-        FileDelition::DeleteOldFiles();
+        FileDelition::deleteOldFiles();
 
-        $emptyAssociativeArray = OutputArrayPreparer::MakeOutputArray();
+        $emptyAssociativeArray = OutputArrayPreparer::makeOutputArray();
 
-        $searchCriteria = JsonDataReader::ReadSearchCriteria();
+        $searchCriteria = JsonDataReader::readSearchCriteria();
 
-        $formattedSearchCriteria = Formatting::FormatSearchCriteria($searchCriteria);
-        
-        $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
+        $formattedSearchCriteria = Formatting::formatSearchCriteria($searchCriteria);
+
+        $response = ApiReader::makeHttpRequest($formattedSearchCriteria);
 
         // Iterates all searches Response one by one
         foreach ($response as $searchId => $searchData) {
-            $fileName = ApiReader::WriteData($searchId, $searchData);
-            
-            $decodedFlightsData = JsonDataReader::ReadFlightsData($fileName);
-            
-            $tickedPrices = TicketPriceScraper::ExtractTickedPrices($decodedFlightsData);
-            
-            $directionCombinations = FlighsCombinationHelper::CountDirectionFlights($formattedSearchCriteria, $searchId, $decodedFlightsData);
-            
-            $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $emptyAssociativeArray, $tickedPrices, $directionCombinations);
-            
-            $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
-            
-            $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
-    
-            $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
-            
-            $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
-            
-            DataToCsvWriter::WriteData($csvDataArray, $searchId);
+            $fileName = ApiReader::writeData($searchId, $searchData);
+
+            $decodedFlightsData = JsonDataReader::readFlightsData($fileName);
+
+            $tickedPrices = TicketPriceScraper::extractTickedPrices($decodedFlightsData);
+
+            $directionCombinations = FlighsCombinationHelper::countDirectionFlights($formattedSearchCriteria, $searchId, $decodedFlightsData);
+
+            $filteredDataArray = OutboundFlightsExtracter::extractOutbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $emptyAssociativeArray, $tickedPrices, $directionCombinations);
+
+            $filteredDataArray = OutboundFlightsExtracter::extractOutbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
+
+            $filteredDataArray = InboundFlightsExtracter::extractInbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
+
+            $filteredDataArray = InboundFlightsExtracter::extractInbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
+
+            $csvDataArray = OutputArrayPreparer::arrayTransposer($filteredDataArray);
+
+            DataToCsvWriter::writeData($csvDataArray, $searchId);
         }
     }
 }
