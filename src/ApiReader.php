@@ -22,21 +22,28 @@ class ApiReader
      */
     public static function MakeHttpRequest(array $formattedSearchCriteria): bool|string
     {   
-        $apiUrl = "http://homeworktask.infare.lt/search.php?from=" .
-            $formattedSearchCriteria['tripFrom'] . "&to=" . $formattedSearchCriteria['tripTo'] .
-            "&depart=" . $formattedSearchCriteria['departDate'] . "&return=" . $formattedSearchCriteria['returnDate'];
+        foreach ($formattedSearchCriteria as $key => $singleSearch) {
 
-        try {
-            $response  = file_get_contents($apiUrl);
-        
-            if ($response === false) {
-                throw new \Exception("While fetching API");
+            $apiUrl = "http://homeworktask.infare.lt/search.php?from=" .
+            $singleSearch['tripFrom'] . "&to=" . $singleSearch['tripTo'] .
+            "&depart=" . $singleSearch['departDate'] . "&return=" . $singleSearch['returnDate'];
+
+            try {
+                $response[$key]  = file_get_contents($apiUrl);
+            
+                if ($response === false) {
+                    throw new \Exception("While fetching API");
+                }
+                echo "Fetched API data succesfully.". PHP_EOL;
+            
+            } catch (\Exception $e) {
+                echo "An error occurred: " . $e->getMessage(). PHP_EOL;
             }
-            echo "Fetched API data succesfully.". PHP_EOL;
-        
-        } catch (\Exception $e) {
-            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
+        
+
+        // print_r($response);
+        // die;
         return $response;
     }
    

@@ -18,12 +18,22 @@ class Formatting
      */
     public static function formatSearchCriteria(array $searchCriteria): array
     {
-        $searchCriteria['departDate'] = $searchCriteria['departDate']['year'] .
-        '-' . $searchCriteria['departDate']['month'] . '-' . $searchCriteria['departDate']['day'];
+        // print_r($searchCriteria);
+        // echo '=====================';
+        // die;
+        foreach ($searchCriteria as &$singleSearch) {
+            
+            $singleSearch['departDate'] = $singleSearch['departDate']['year'] .
+            '-' . $singleSearch['departDate']['month'] . '-' . $singleSearch['departDate']['day'];
+    
+            $singleSearch['returnDate'] = $singleSearch['returnDate']['year'] .
+            '-' . $singleSearch['returnDate']['month'] . '-' . $singleSearch['returnDate']['day'];
+        
+        }
 
-        $searchCriteria['returnDate'] = $searchCriteria['returnDate']['year'] .
-        '-' . $searchCriteria['returnDate']['month'] . '-' . $searchCriteria['returnDate']['day'];
 
+        // print_r($searchCriteria);
+        // die;
         return $searchCriteria;
     }
 

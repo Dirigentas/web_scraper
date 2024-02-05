@@ -35,12 +35,12 @@ final class ProjectController
 
         $formattedSearchCriteria = Formatting::formatSearchCriteria($searchCriteria);
 
-        // $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
+        $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
 
-        // $fileName = ApiReader::WriteData($response);
+        $fileName = ApiReader::WriteData($response);
 
-        // $jsonData = JsonDataReader::ReadFlightsData($fileName);
-        $jsonData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
+        $jsonData = JsonDataReader::ReadFlightsData($fileName);
+        // $jsonData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
 
         $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
 
