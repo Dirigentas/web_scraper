@@ -18,6 +18,7 @@ use Aras\WebScraper\data_extraction\FlighsCombinationHelper;
 use Aras\WebScraper\data_extraction\OutboundFlightsExtracter;
 use Aras\WebScraper\data_extraction\InboundFlightsExtracter;
 use Aras\WebScraper\DataToCsvWriter;
+use Aras\WebScraper\FileDelition;
 
 /**
  * Class ProjectController controls all paths of the solution.
@@ -31,11 +32,13 @@ final class ProjectController
      */
     public static function executeAllClasses(): void
     {
+        FileDelition::DeleteOldFiles();
+
         $emptyAssociativeArray = OutputArrayPreparer::MakeOutputArray();
 
         $searchCriteria = JsonDataReader::ReadSearchCriteria();
 
-        $formattedSearchCriteria = Formatting::formatSearchCriteria($searchCriteria);
+        $formattedSearchCriteria = Formatting::FormatSearchCriteria($searchCriteria);
         
         $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
 

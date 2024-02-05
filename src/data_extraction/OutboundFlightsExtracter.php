@@ -51,8 +51,8 @@ class OutboundFlightsExtracter
         
                             $filteredDataArray['outbound 1 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['outbound 1 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['outbound 1 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
-                            $filteredDataArray['outbound 1 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
+                            $filteredDataArray['outbound 1 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
+                            $filteredDataArray['outbound 1 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
                             $filteredDataArray['outbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
 
                             if ($journey['recommendationId'] == TicketPriceScraper::FindCheapestRecommendation($jsonData)) {
@@ -98,8 +98,8 @@ class OutboundFlightsExtracter
                         ) {        
                             $filteredDataArray['outbound 2 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['outbound 2 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['outbound 2 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
-                            $filteredDataArray['outbound 2 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
+                            $filteredDataArray['outbound 2 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
+                            $filteredDataArray['outbound 2 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
                             $filteredDataArray['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (

@@ -16,7 +16,7 @@ class Formatting
     /**
      *
      */
-    public static function formatSearchCriteria(array $searchCriteria): array
+    public static function FormatSearchCriteria(array $searchCriteria): array
     {
         foreach ($searchCriteria as &$singleSearch) {
             
@@ -27,8 +27,6 @@ class Formatting
             '-' . $singleSearch['returnDate']['month'] . '-' . $singleSearch['returnDate']['day'];
         
         }
-        // print_r($searchCriteria);
-        // die;
         return $searchCriteria;
     }
 
@@ -40,7 +38,7 @@ class Formatting
      *
      * @return string String of formatted date.
      */
-    public static function formatDate(string $input): string
+    public static function FormatDate(string $input): string
     {
         return date('Y-m-d H:i', strtotime($input));
     }

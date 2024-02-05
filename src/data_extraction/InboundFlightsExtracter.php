@@ -49,8 +49,8 @@ class InboundFlightsExtracter
         
                             $filteredDataArray['inbound 1 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['inbound 1 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['inbound 1 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
-                            $filteredDataArray['inbound 1 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
+                            $filteredDataArray['inbound 1 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
+                            $filteredDataArray['inbound 1 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 1 flight number'][] = $flight['companyCode'] . $flight['number'];
 
                             $taxElementId +=1;
@@ -92,8 +92,8 @@ class InboundFlightsExtracter
                         ) {                                  
                             $filteredDataArray['inbound 2 airport departure'][] = $flight['airportDeparture']['code'];
                             $filteredDataArray['inbound 2 airport arrival'][] = $flight['airportArrival']['code'];
-                            $filteredDataArray['inbound 2 time departure'][] = Formatting::formatDate($flight['dateDeparture']);
-                            $filteredDataArray['inbound 2 time arrival'][] = Formatting::formatDate($flight['dateArrival']);
+                            $filteredDataArray['inbound 2 time departure'][] = Formatting::FormatDate($flight['dateDeparture']);
+                            $filteredDataArray['inbound 2 time arrival'][] = Formatting::FormatDate($flight['dateArrival']);
                             $filteredDataArray['inbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
