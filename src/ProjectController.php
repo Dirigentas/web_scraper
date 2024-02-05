@@ -36,14 +36,13 @@ final class ProjectController
         $searchCriteria = JsonDataReader::ReadSearchCriteria();
 
         $formattedSearchCriteria = Formatting::formatSearchCriteria($searchCriteria);
-
+        
         $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
 
         foreach ($response as $searchId => $searchData) {
             $fileName = ApiReader::WriteData($searchId, $searchData);
             
             $decodedFlightsData = JsonDataReader::ReadFlightsData($fileName);
-            // $decodedFlightsData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
             
             $tickedPrices = TicketPriceScraper::ExtractTickedPrices($decodedFlightsData);
             
@@ -60,10 +59,6 @@ final class ProjectController
             $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
             
             DataToCsvWriter::WriteData($csvDataArray, $searchId);
-            
-        }      
-
-
-
+        }
     }
 }

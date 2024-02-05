@@ -41,7 +41,6 @@ class OutboundFlightsExtracter
                 foreach ($journey['flights'] as $flight) {
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
                         if (
-                            // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
                             $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {
@@ -66,9 +65,6 @@ class OutboundFlightsExtracter
                 }
             }
         }
-        // echo "Labas \n";
-        // print_r($filteredDataArray);
-        // die;
         return $filteredDataArray;
     }
 
@@ -96,9 +92,7 @@ class OutboundFlightsExtracter
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
 
                         if (
-                            // $flight['airportDeparture']['code'] != $formattedSearchCriteria['tripFrom'] &&
                             $flight['airportDeparture']['code'] != $formattedSearchCriteria[$searchId]['tripFrom'] &&
-                            // $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
                             $flight['airportArrival']['code'] == $formattedSearchCriteria[$searchId]['tripTo'] &&
                             $journey['recommendationId'] == $key
                         ) {        
@@ -109,9 +103,7 @@ class OutboundFlightsExtracter
                             $filteredDataArray['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
-                            // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
                             $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripFrom'] &&
-                            // $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
                             $flight['airportArrival']['code'] == $formattedSearchCriteria[$searchId]['tripTo'] &&
                             $journey['recommendationId'] == $key
                             ) {

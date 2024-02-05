@@ -18,9 +18,6 @@ class Formatting
      */
     public static function formatSearchCriteria(array $searchCriteria): array
     {
-        // print_r($searchCriteria);
-        // echo '=====================';
-        // die;
         foreach ($searchCriteria as &$singleSearch) {
             
             $singleSearch['departDate'] = $singleSearch['departDate']['year'] .
@@ -30,8 +27,6 @@ class Formatting
             '-' . $singleSearch['returnDate']['month'] . '-' . $singleSearch['returnDate']['day'];
         
         }
-
-
         // print_r($searchCriteria);
         // die;
         return $searchCriteria;

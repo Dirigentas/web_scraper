@@ -7,15 +7,16 @@
 ## `Start` the solution
 
 -   have `PHP` and `composer` installed in your system
--   choose desired flights destinations and dates in [SearchCriteria.json](./public/search_criteria.json) and `save` the file
+-   choose desired flights destinations and dates in [HERE](./public/search_criteria.json) and `save` the file
 -   run below terminal commands:
     -   composer install
     -   composer run-script start
+-   search results will appear [HERE](./public/search_results.csv)
 
 ## 🎯 Project features
 
--   PHP
--   OOP
+-   cheapest flight as a separate column in CSV file
+-   PHP, OOP
 -   language code style, [PSR-12](https://www.php-fig.org/psr/psr-12/)
 -   no libraries
 -   an easy way to start the solution

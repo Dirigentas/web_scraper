@@ -30,7 +30,6 @@ class ApiReader
 
             try {
                 $response[$key]  = file_get_contents($apiUrl);
-                // $response  = file_get_contents($apiUrl);
             
                 if ($response === false) {
                     throw new \Exception("While fetching API");
@@ -39,12 +38,7 @@ class ApiReader
             } catch (\Exception $e) {
                 echo "An error occurred: " . $e->getMessage(). PHP_EOL;
             }
-            // break;
         }
-        
-
-        // print_r($response);
-        // die;
         return $response;
     }
    

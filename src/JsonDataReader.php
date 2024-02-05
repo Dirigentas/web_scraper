@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Aras\WebScraper;
 
+use Aras\WebScraper\Validations;
+
 /**
  * Class JsonDataReader
  * Represents a class for reading data from a JSON files.
@@ -21,22 +23,12 @@ final class JsonDataReader
      */ 
     public static function ReadSearchCriteria(): ?array
     {
-        try {
-            $json = file_get_contents('./public/search_criteria.json');
+        $json = file_get_contents('./public/search_criteria.json');
+
+        $parsedSearchCriteria = json_decode($json, true);
+
+        Validations::SearchCriteriaValidation($parsedSearchCriteria);
         
-            if ($json === false) {
-                throw new \Exception("When reading file");
-            }
-            $parsedSearchCriteria = json_decode($json, true);
-        
-            if ($parsedSearchCriteria === null) {
-                throw new \Exception("When decoding JSON");
-            }        
-        } catch (\Exception $e) {
-            echo "An error occurred: " . $e->getMessage(). PHP_EOL;
-        }
-        // print_r($parsedSearchCriteria);
-        // die;
         return $parsedSearchCriteria;
     }
     
@@ -48,8 +40,6 @@ final class JsonDataReader
      */ 
     public static function ReadFlightsData(string $fileName): ?array
     {
-        // print_r($fileName);
-        // die;
         try {
             $json = file_get_contents('./public/' . $fileName);
         
@@ -66,9 +56,6 @@ final class JsonDataReader
         } catch (\Exception $e) {
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
-        // print_r($decodedFlightsData['header']);
-        // echo count($decodedFlightsData);
-        // die;
         return $decodedFlightsData;
     }
 }

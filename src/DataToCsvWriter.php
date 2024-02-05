@@ -24,7 +24,7 @@ final class DataToCsvWriter
     public static function WriteData(array $csvDataArray, string $searchId): void
     {
         if ($searchId == 'search_1') {
-            $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'w');
+            $csvFileName = fopen('./public/search_results.csv', 'w');
 
             fputcsv($csvFileName, [
                 "Price",
@@ -53,7 +53,7 @@ final class DataToCsvWriter
             ]);
         }
         else {
-            $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'a');
+            $csvFileName = fopen('./public/search_results.csv', 'a');
         }
 
         foreach ($csvDataArray as $row) {

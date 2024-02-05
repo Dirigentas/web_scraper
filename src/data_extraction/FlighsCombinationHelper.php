@@ -26,28 +26,21 @@ class FlighsCombinationHelper
      */
     public static function CountDirectionFlights(array $formattedSearchCriteria, string $searchId, array $decodedFlightsData): Array
     {
-        // print_r($formattedSearchCriteria);
-        // die;
         foreach ($decodedFlightsData['body']['data']['journeys'] as $journey) {
             foreach ($journey['flights'] as $flight) {
 
                 if (
-                    // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom']
                     $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripFrom']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
                 }
                 if (
-                    // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripTo']
                     $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripTo']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
                 }
             }
         }
-        // echo "Labas \n";
-        // print_r($directionCombinations);
-        // die;
         return $directionCombinations;
     }
 }
