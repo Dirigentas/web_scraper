@@ -24,25 +24,30 @@ class FlighsCombinationHelper
      * @param array $decodedFlightsData The JSON file containing data of selected airports and period.
      * @return array[] An associative array where keys are recommendation IDs and values are arrays containing flight numbers for outbound and inbound directions.
      */
-    public static function CountDirectionFlights(array $formattedSearchCriteria, array $decodedFlightsData): Array
+    public static function CountDirectionFlights(array $formattedSearchCriteria, string $searchId, array $decodedFlightsData): Array
     {
+        // print_r($formattedSearchCriteria);
+        // die;
         foreach ($decodedFlightsData['body']['data']['journeys'] as $journey) {
             foreach ($journey['flights'] as $flight) {
 
                 if (
                     // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom']
-                    $flight['airportDeparture']['code'] == $formattedSearchCriteria['search_1']['tripFrom']
+                    $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripFrom']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['out'][] = $flight['number'];
                 }
                 if (
                     // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripTo']
-                    $flight['airportDeparture']['code'] == $formattedSearchCriteria['search_1']['tripTo']
+                    $flight['airportDeparture']['code'] == $formattedSearchCriteria[$searchId]['tripTo']
                 ) {
                     $directionCombinations[$journey['recommendationId']]['in'][] = $flight['number'];
                 }
             }
         }
+        // echo "Labas \n";
+        // print_r($directionCombinations);
+        // die;
         return $directionCombinations;
     }
 }

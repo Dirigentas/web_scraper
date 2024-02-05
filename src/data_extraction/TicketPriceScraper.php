@@ -25,6 +25,9 @@ class TicketPriceScraper
         foreach ($decodedFlightsData['body']['data']['totalAvailabilities'] as $availablePrice) {
             $prices[$availablePrice['recommendationId']] = $availablePrice['total'];
         }
+        // echo "Labas \n";
+        // print_r($prices);
+        // die;
         return $prices;
     }
 

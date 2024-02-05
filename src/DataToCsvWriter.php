@@ -21,35 +21,40 @@ final class DataToCsvWriter
      * @param array $csvDataArray An array containing the data to be written to the CSV file.
      * @return void
      */
-    public static function WriteData(array $csvDataArray): void
+    public static function WriteData(array $csvDataArray, string $searchId): void
     {
-        $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'w');
+        if ($searchId == 'search_1') {
+            $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'w');
 
-        fputcsv($csvFileName, [
-            "Price",
-            "Taxes",
-            "outbound 1 airport departure",
-            "outbound 1 airport arrival",
-            "outbound 1 time departure",
-            "outbound 1 time arrival",
-            "outbound 1 flight number",
-            "outbound 2 airport departure",
-            "outbound 2 airport arrival",
-            "outbound 2 time departure",
-            "outbound 2 time arrival",
-            "outbound 2 flight number",
-            "inbound 1 airport departure",
-            "inbound 1 airport arrival",
-            "inbound 1 time departure",
-            "inbound 1 time arrival",
-            "inbound 1 flight number",
-            "inbound 2 airport departure",
-            "inbound 2 airport arrival",
-            "inbound 2 time departure",
-            "inbound 2 time arrival",
-            "inbound 2 flight number",
-            "Cheapest"
-        ]);
+            fputcsv($csvFileName, [
+                "Price",
+                "Taxes",
+                "outbound 1 airport departure",
+                "outbound 1 airport arrival",
+                "outbound 1 time departure",
+                "outbound 1 time arrival",
+                "outbound 1 flight number",
+                "outbound 2 airport departure",
+                "outbound 2 airport arrival",
+                "outbound 2 time departure",
+                "outbound 2 time arrival",
+                "outbound 2 flight number",
+                "inbound 1 airport departure",
+                "inbound 1 airport arrival",
+                "inbound 1 time departure",
+                "inbound 1 time arrival",
+                "inbound 1 flight number",
+                "inbound 2 airport departure",
+                "inbound 2 airport arrival",
+                "inbound 2 time departure",
+                "inbound 2 time arrival",
+                "inbound 2 flight number",
+                "Cheapest"
+            ]);
+        }
+        else {
+            $csvFileName = fopen('./public/multiple_search_parameter_sets.csv', 'a');
+        }
 
         foreach ($csvDataArray as $row) {
             fputcsv($csvFileName, $row);

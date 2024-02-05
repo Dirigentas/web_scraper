@@ -20,7 +20,7 @@ class ApiReader
      * departure and return dates.
      * @return bool|string Returns the response from the API as a string on success, or false on failure.
      */
-    public static function MakeHttpRequest(array $formattedSearchCriteria): bool|string
+    public static function MakeHttpRequest(array $formattedSearchCriteria): array
     {   
         foreach ($formattedSearchCriteria as $key => $singleSearch) {
 
@@ -29,18 +29,17 @@ class ApiReader
             "&depart=" . $singleSearch['departDate'] . "&return=" . $singleSearch['returnDate'];
 
             try {
-                $response  = file_get_contents($apiUrl);
-                // $response[$key]  = file_get_contents($apiUrl);
+                $response[$key]  = file_get_contents($apiUrl);
+                // $response  = file_get_contents($apiUrl);
             
                 if ($response === false) {
                     throw new \Exception("While fetching API");
                 }
-                echo "Fetched API data succesfully.". PHP_EOL;
             
             } catch (\Exception $e) {
                 echo "An error occurred: " . $e->getMessage(). PHP_EOL;
             }
-            break;
+            // break;
         }
         
 
@@ -52,17 +51,17 @@ class ApiReader
     /**
      * Writes data to a json file.
      *
-     * @param string $response The JSON data to write to the file.
+     * @param string $searchData The JSON data to write to the file.
      * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
      * departure and return dates.
      * @return string Returns the name of the JSON file that was written.
      */
-    public static function WriteData(string $response): string
+    public static function WriteData(string $searchId, string $searchData): string
     {
-        $fileName = 'draft.json';
+        $fileName = $searchId . '.json';
 
         try {
-            $result = file_put_contents('./public/' . $fileName, $response);
+            $result = file_put_contents('./public/' . $fileName, $searchData);
         
             if ($result === false) {
                 throw new \Exception("When trying to write data to file.");

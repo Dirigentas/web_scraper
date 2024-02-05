@@ -66,7 +66,7 @@ final class JsonDataReader
         } catch (\Exception $e) {
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
-        // print_r($decodedFlightsData);
+        // print_r($decodedFlightsData['header']);
         // echo count($decodedFlightsData);
         // die;
         return $decodedFlightsData;
