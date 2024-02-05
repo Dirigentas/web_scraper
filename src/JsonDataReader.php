@@ -56,9 +56,9 @@ final class JsonDataReader
             if ($json === false) {
                 throw new \Exception("When reading file");
             }
-            $parsedFlightsData = json_decode($json, true);
+            $decodedFlightsData = json_decode($json, true);
         
-            if ($parsedFlightsData === null) {
+            if ($decodedFlightsData === null) {
                 throw new \Exception("When decoding JSON");
             }
             echo "Read and decode Json file succesfully.". PHP_EOL;
@@ -66,9 +66,9 @@ final class JsonDataReader
         } catch (\Exception $e) {
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
-        // print_r($parsedFlightsData);
-        // echo count($parsedFlightsData);
+        // print_r($decodedFlightsData);
+        // echo count($decodedFlightsData);
         // die;
-        return $parsedFlightsData;
+        return $decodedFlightsData;
     }
 }

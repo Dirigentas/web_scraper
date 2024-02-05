@@ -16,13 +16,13 @@ class TicketPriceScraper
 {
     /**
      * Extracts ticket prices from JSON data.
-     * @param array $jsonData The JSON data containing ticket prices.
+     * @param array $decodedFlightsData The JSON data containing ticket prices.
      * @return array[] An associative array where keys are recommendation IDs and values are corresponding ticket prices.
      */
-    public static function ExtractTickedPrices(array $jsonData): Array
+    public static function ExtractTickedPrices(array $decodedFlightsData): Array
     {
         $prices = [];
-        foreach ($jsonData['body']['data']['totalAvailabilities'] as $availablePrice) {
+        foreach ($decodedFlightsData['body']['data']['totalAvailabilities'] as $availablePrice) {
             $prices[$availablePrice['recommendationId']] = $availablePrice['total'];
         }
         return $prices;

@@ -41,7 +41,8 @@ class OutboundFlightsExtracter
                 foreach ($journey['flights'] as $flight) {
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
                         if (
-                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
+                            // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
+                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['search_1']['tripFrom'] &&
                             $journey['recommendationId'] == $key
                         ) {
         
@@ -92,8 +93,10 @@ class OutboundFlightsExtracter
                     foreach (range(1, $inboundCombinationsCountSingleId) as $number) {
 
                         if (
-                            $flight['airportDeparture']['code'] != $formattedSearchCriteria['tripFrom'] &&
-                            $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
+                            // $flight['airportDeparture']['code'] != $formattedSearchCriteria['tripFrom'] &&
+                            $flight['airportDeparture']['code'] != $formattedSearchCriteria['search_1']['tripFrom'] &&
+                            // $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
+                            $flight['airportArrival']['code'] == $formattedSearchCriteria['search_1']['tripTo'] &&
                             $journey['recommendationId'] == $key
                         ) {        
                             $filteredDataArray['outbound 2 airport departure'][] = $flight['airportDeparture']['code'];
@@ -103,8 +106,10 @@ class OutboundFlightsExtracter
                             $filteredDataArray['outbound 2 flight number'][] = $flight['companyCode'] . $flight['number'];
                         }
                         elseif (
-                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
-                            $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
+                            // $flight['airportDeparture']['code'] == $formattedSearchCriteria['tripFrom'] &&
+                            $flight['airportDeparture']['code'] == $formattedSearchCriteria['search_1']['tripFrom'] &&
+                            // $flight['airportArrival']['code'] == $formattedSearchCriteria['tripTo'] &&
+                            $flight['airportArrival']['code'] == $formattedSearchCriteria['search_1']['tripTo'] &&
                             $journey['recommendationId'] == $key
                             ) {
                             $filteredDataArray['outbound 2 airport departure'][] = '-';

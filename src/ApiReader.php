@@ -29,7 +29,8 @@ class ApiReader
             "&depart=" . $singleSearch['departDate'] . "&return=" . $singleSearch['returnDate'];
 
             try {
-                $response[$key]  = file_get_contents($apiUrl);
+                $response  = file_get_contents($apiUrl);
+                // $response[$key]  = file_get_contents($apiUrl);
             
                 if ($response === false) {
                     throw new \Exception("While fetching API");
@@ -39,6 +40,7 @@ class ApiReader
             } catch (\Exception $e) {
                 echo "An error occurred: " . $e->getMessage(). PHP_EOL;
             }
+            break;
         }
         
 
@@ -50,18 +52,17 @@ class ApiReader
     /**
      * Writes data to a json file.
      *
-     * @param string $jsonData The JSON data to write to the file.
+     * @param string $response The JSON data to write to the file.
      * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
      * departure and return dates.
      * @return string Returns the name of the JSON file that was written.
      */
-    public static function WriteData(string $jsonData, array $formattedSearchCriteria): string
+    public static function WriteData(string $response): string
     {
-        $fileName = $formattedSearchCriteria['tripFrom'] . '-' . $formattedSearchCriteria['tripTo']
-        . '_(' . $formattedSearchCriteria['departDate'] . ')-(' . $formattedSearchCriteria['returnDate'] . ').json';
+        $fileName = 'draft.json';
 
         try {
-            $result = file_put_contents('./public/' . $fileName, $jsonData);
+            $result = file_put_contents('./public/' . $fileName, $response);
         
             if ($result === false) {
                 throw new \Exception("When trying to write data to file.");

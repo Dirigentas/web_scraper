@@ -21,7 +21,7 @@ class OutputArrayPreparer
      */
     public static function MakeOutputArray(): Array
     {
-        $emptyFilteredDataArray = [
+        $emptyAssociativeArray = [
             "Price"=>[],
             "Taxes"=>[],
             "outbound 1 airport departure"=>[],
@@ -47,7 +47,7 @@ class OutputArrayPreparer
             "Cheapest"=>[]
         ];
 
-        return $emptyFilteredDataArray;
+        return $emptyAssociativeArray;
     }
 
     /**

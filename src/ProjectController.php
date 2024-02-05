@@ -39,22 +39,22 @@ final class ProjectController
 
         $fileName = ApiReader::WriteData($response);
 
-        $jsonData = JsonDataReader::ReadFlightsData($fileName);
-        // $jsonData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
+        $decodedFlightsData = JsonDataReader::ReadFlightsData($fileName);
+        // $decodedFlightsData = JsonDataReader::ReadFlightsData('multiple_search_parameter_sets.json');
 
-        $emptyFilteredDataArray = OutputArrayPreparer::MakeOutputArray();
+        $emptyAssociativeArray = OutputArrayPreparer::MakeOutputArray();
 
-        $tickedPrices = TicketPriceScraper::ExtractTickedPrices($jsonData);
+        $tickedPrices = TicketPriceScraper::ExtractTickedPrices($decodedFlightsData);
 
-        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights($formattedSearchCriteria, $jsonData);
+        $directionCombinations = FlighsCombinationHelper::CountDirectionFlights($formattedSearchCriteria, $decodedFlightsData);
 
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($formattedSearchCriteria, $jsonData, $emptyFilteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($formattedSearchCriteria, $decodedFlightsData, $emptyAssociativeArray, $tickedPrices, $directionCombinations);
         
-        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $tickedPrices, $directionCombinations);
+        $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $tickedPrices, $directionCombinations);
 
-        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
+        $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $directionCombinations);
 
-        // $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $jsonData, $filteredDataArray, $directionCombinations);
+        // $filteredDataArray = InboundFlightsExtracter::ExtractInbound2Flights($formattedSearchCriteria, $decodedFlightsData, $filteredDataArray, $directionCombinations);
 
         $csvDataArray = OutputArrayPreparer::ArrayTransposer($filteredDataArray);
 
