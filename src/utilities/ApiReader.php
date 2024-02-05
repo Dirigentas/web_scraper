@@ -18,7 +18,7 @@ class ApiReader
      *
      * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
      * departure and return dates.
-     * @return bool|string Returns the response from the API as a string on success, or false on failure.
+     * @return array Returns the response from the API and puts into array element.
      */
     public static function MakeHttpRequest(array $formattedSearchCriteria): array
     {   
@@ -45,9 +45,8 @@ class ApiReader
     /**
      * Writes data to a json file.
      *
+     * @param string $searchId String containing ID of the current search.
      * @param string $searchData The JSON data to write to the file.
-     * @param array $formattedSearchCriteria An array containing details of the flights, including departure and arrival airports,
-     * departure and return dates.
      * @return string Returns the name of the JSON file that was written.
      */
     public static function WriteData(string $searchId, string $searchData): string

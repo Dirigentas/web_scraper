@@ -21,9 +21,9 @@ class InboundFlightsExtracter
      * This method extracts data for the first inbound flights based on JSON data.
      *
      * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
+     * @param string $searchId String containing ID of the current search.
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
-     * @param array $tickedPrices An array containing ticket prices data.
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 1 flight data.
      */
@@ -65,10 +65,10 @@ class InboundFlightsExtracter
     /**
      * This method extracts data for the second inbound flights based on JSON data.
      *
-     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data
+     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
+     * @param string $searchId String containing ID of the current search.
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
-     * @param array $tickedPrices An array containing ticket prices data.
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with inbound 2 flight data.
      */

@@ -22,6 +22,7 @@ class OutboundFlightsExtracter
      * This method extracts data for the first outbound flights based on JSON data.
      *
      * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
+     * @param string $searchId String containing ID of the current search.
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
      * @param array $tickedPrices An array containing ticket prices data.
@@ -71,14 +72,14 @@ class OutboundFlightsExtracter
     /**
      * This method extracts data for the second outbound flights based on JSON data.
      *
-     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data
+     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
+     * @param string $searchId String containing ID of the current search.
      * @param array $jsonData The JSON data containing flight details.
      * @param array $filteredDataArray An array prepared to be filled with filtered data.
-     * @param array $tickedPrices An array containing ticket prices data.
      * @param array $directionCombinations An array containing direction combinations data.
      * @return array The updated filtered data array with outbound 2 flight data.
      */
-    public static function ExtractOutbound2Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $tickedPrices, array $directionCombinations): Array
+    public static function ExtractOutbound2Flights(array $formattedSearchCriteria, string $searchId, array $jsonData, array $filteredDataArray, array $directionCombinations): Array
     {
         foreach ($directionCombinations as $key => $flightNo) {
             $inboundCombinationsCountSingleId = count($flightNo['in']);

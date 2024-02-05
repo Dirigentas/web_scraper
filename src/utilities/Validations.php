@@ -7,7 +7,10 @@ namespace Aras\WebScraper\utilities;
 final class Validations
 {
     /**
+     * Validates the parsed search criteria array to ensure all required parameters are present.
      * 
+     * @param array $parsedSearchCriteria The parsed search criteria array to be validated.
+     * @return void
      */
     public static function SearchCriteriaValidation(array $parsedSearchCriteria): void
     {

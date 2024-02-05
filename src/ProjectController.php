@@ -41,6 +41,7 @@ final class ProjectController
         
         $response = ApiReader::MakeHttpRequest($formattedSearchCriteria);
 
+        // Iterates all searches Response one by one
         foreach ($response as $searchId => $searchData) {
             $fileName = ApiReader::WriteData($searchId, $searchData);
             
@@ -52,7 +53,7 @@ final class ProjectController
             
             $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $emptyAssociativeArray, $tickedPrices, $directionCombinations);
             
-            $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $tickedPrices, $directionCombinations);
+            $filteredDataArray = OutboundFlightsExtracter::ExtractOutbound2Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
             
             $filteredDataArray = InboundFlightsExtracter::ExtractInbound1Flights($formattedSearchCriteria, $searchId, $decodedFlightsData, $filteredDataArray, $directionCombinations);
     

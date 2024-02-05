@@ -17,8 +17,8 @@ final class DataToCsvWriter
     /**
      * This method writes the provided data to a CSV file with the specified filename format.
      *
-     * @param array $formattedSearchCriteria An array containing parameters for requesting flight data.
      * @param array $csvDataArray An array containing the data to be written to the CSV file.
+     * @param string $searchId String containing ID of the current search.
      * @return void
      */
     public static function WriteData(array $csvDataArray, string $searchId): void

@@ -14,8 +14,11 @@ namespace Aras\WebScraper\utilities;
 class Formatting
 {
     /**
+     * Formats the search criteria array to ensure date values are in the correct format.
+     * @param array $searchCriteria The search criteria array containing date values to be formatted.
      *
-     */
+     * @return array The formatted search criteria array.
+      */
     public static function FormatSearchCriteria(array $searchCriteria): array
     {
         foreach ($searchCriteria as &$singleSearch) {
