@@ -22,7 +22,7 @@ final class JsonDataReader
     public static function ReadSearchCriteria(): ?array
     {
         try {
-            $json = file_get_contents('./public/SearchCriteria.json');
+            $json = file_get_contents('./public/search_criteria.json');
         
             if ($json === false) {
                 throw new \Exception("When reading file");
@@ -35,6 +35,8 @@ final class JsonDataReader
         } catch (\Exception $e) {
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
+        // print_r($parsedSearchCriteria);
+        // die;
         return $parsedSearchCriteria;
     }
     
@@ -46,15 +48,17 @@ final class JsonDataReader
      */ 
     public static function ReadFlightsData(string $fileName): ?array
     {
+        // print_r($fileName);
+        // die;
         try {
             $json = file_get_contents('./public/' . $fileName);
         
             if ($json === false) {
                 throw new \Exception("When reading file");
             }
-            $parsedFlightsData = json_decode($json, true);
+            $decodedFlightsData = json_decode($json, true);
         
-            if ($parsedFlightsData === null) {
+            if ($decodedFlightsData === null) {
                 throw new \Exception("When decoding JSON");
             }
             echo "Read and decode Json file succesfully.". PHP_EOL;
@@ -62,6 +66,9 @@ final class JsonDataReader
         } catch (\Exception $e) {
             echo "An error occurred: " . $e->getMessage(). PHP_EOL;
         }
-        return $parsedFlightsData;
+        // print_r($decodedFlightsData['header']);
+        // echo count($decodedFlightsData);
+        // die;
+        return $decodedFlightsData;
     }
 }
